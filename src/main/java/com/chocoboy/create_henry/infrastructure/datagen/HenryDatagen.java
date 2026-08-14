@@ -7,8 +7,8 @@ import com.tterrag.registrate.providers.ProviderType;
 import net.createmod.ponder.foundation.PonderIndex;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.data.event.GatherDataEvent;
-
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 public class HenryDatagen {
@@ -22,17 +22,17 @@ public class HenryDatagen {
 		if (event.includeServer()) {
 			generator.addProvider(true, new AdvancedCraftingRecipeGen(output));
 
-			generator.addProvider(true, new WashingRecipeGen(output));
-			generator.addProvider(true, new SandingRecipeGen(output));
-			generator.addProvider(true, new FreezingRecipeGen(output));
-			generator.addProvider(true, new SeethingRecipeGen(output));
-			generator.addProvider(true, new WitheringRecipeGen(output));
-			generator.addProvider(true, new DragonBreathingRecipeGen(output));
-			generator.addProvider(true, new ItemApplicationRecipeGen(output));
-			generator.addProvider(true, new MixingRecipeGen(output));
-			generator.addProvider(true, new EmptyingRecipeGen(output));
-			generator.addProvider(true, new FillingRecipeGen(output));
-			generator.addProvider(true, new HydraulicRecipeGen(output));
+			generator.addProvider(true, new WashingRecipeGen(output, event.getLookup()));
+			generator.addProvider(true, new SandingRecipeGen(output, event.getLookup()));
+			generator.addProvider(true, new FreezingRecipeGen(output, event.getLookup()));
+			generator.addProvider(true, new SeethingRecipeGen(output, event.getLookup()));
+			generator.addProvider(true, new WitheringRecipeGen(output, event.getLookup()));
+			generator.addProvider(true, new DragonBreathingRecipeGen(output, event.getLookup()));
+			generator.addProvider(true, new ItemApplicationRecipeGen(output, event.getLookup()));
+			generator.addProvider(true, new MixingRecipeGen(output, event.getLookup()));
+			generator.addProvider(true, new EmptyingRecipeGen(output, event.getLookup()));
+			generator.addProvider(true, new FillingRecipeGen(output, event.getLookup()));
+			generator.addProvider(true, new HydraulicRecipeGen(output, event.getLookup()));
 		}
 	}
 

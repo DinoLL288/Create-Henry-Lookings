@@ -7,7 +7,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandlerModifiable;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -30,12 +30,12 @@ public abstract class BlockEntityInventory<BE extends SyncedBlockEntity> impleme
         this.stackSize = stackSize;
     }
 
-    public void load(CompoundTag tag) {
-        ContainerHelper.loadAllItems(tag, stacks);
+    public void load(CompoundTag tag, net.minecraft.core.HolderLookup.Provider provider) {
+        ContainerHelper.loadAllItems(tag, stacks, provider);
     }
 
-    public void save(CompoundTag tag) {
-        ContainerHelper.saveAllItems(tag, stacks);
+    public CompoundTag save(CompoundTag tag, net.minecraft.core.HolderLookup.Provider provider) {
+        return ContainerHelper.saveAllItems(tag, stacks, provider);
     }
 
     @Override
@@ -115,7 +115,7 @@ public abstract class BlockEntityInventory<BE extends SyncedBlockEntity> impleme
             var existing = getItem(slot);
             int limit = getStackLimit(slot, stack);
             if (!existing.isEmpty()) {
-                if (!ItemStack.isSameItemSameTags(stack, existing)) return stack;
+                if (!ItemStack.isSameItemSameComponents(stack, existing)) return stack;
                 limit -= existing.getCount();
             }
 

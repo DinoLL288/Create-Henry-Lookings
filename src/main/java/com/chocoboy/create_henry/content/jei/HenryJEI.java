@@ -69,7 +69,7 @@ public class HenryJEI implements IModPlugin {
                         .addTypedRecipes(HenryRecipeTypes.SANDING)
                         .addRecipeListConsumer(recipes -> consumeAllRecipes(recipe -> {
                             if (SandingType.isPolishProcessingRecipe(recipe)) {
-                                SandingRecipe r = SandingType.toSandingRecipe((ProcessingRecipe<?>) recipe);
+                                SandingRecipe r = SandingType.toSandingRecipe((ProcessingRecipe<?, ?>) recipe);
                                 if (r != null) recipes.add(r);
                             }
                         }))

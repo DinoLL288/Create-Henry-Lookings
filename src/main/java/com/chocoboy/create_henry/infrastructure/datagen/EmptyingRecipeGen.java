@@ -3,8 +3,12 @@ package com.chocoboy.create_henry.infrastructure.datagen;
 import com.chocoboy.create_henry.HenryCreate;
 import com.chocoboy.create_henry.registry.HenryFluids;
 import com.chocoboy.create_henry.registry.HenryItems;
+import com.simibiy.create.api.data.recipe.BaseRecipeProvider.GeneratedRecipe;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Items;
+
+import java.util.concurrent.CompletableFuture;
 
 import static com.chocoboy.create_henry.registry.HenryTags.forgeItemTag;
 
@@ -55,7 +59,7 @@ public final class EmptyingRecipeGen extends com.simibubi.create.api.data.recipe
                     .require(HenryItems.PUMPKIN_MILKSHAKE)
             );
 
-    public EmptyingRecipeGen(PackOutput output) {
-        super(output, HenryCreate.MOD_ID);
+    public EmptyingRecipeGen(PackOutput output, CompletableFuture<HolderLookup.Provider> lookups) {
+        super(output, lookups, HenryCreate.MOD_ID);
     }
 }

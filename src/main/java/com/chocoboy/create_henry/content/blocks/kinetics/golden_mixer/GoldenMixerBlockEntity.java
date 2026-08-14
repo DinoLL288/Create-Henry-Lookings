@@ -28,15 +28,15 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.List;
 import java.util.Optional;
@@ -96,20 +96,20 @@ public class GoldenMixerBlockEntity extends BasinOperatingBlockEntity {
     }
 
     @Override
-    protected void read(CompoundTag compound, boolean clientPacket) {
+    protected void read(CompoundTag compound, net.minecraft.core.HolderLookup.Provider pRegistries, boolean clientPacket) {
         running = compound.getBoolean("Running");
         runningTicks = compound.getInt("Ticks");
-        super.read(compound, clientPacket);
+        super.read(compound, pRegistries, clientPacket);
 
         if (clientPacket && hasLevel())
             getBasin().ifPresent(bte -> bte.setAreFluidsMoving(running && runningTicks <= ticksHigh()));
     }
 
     @Override
-    protected void write(CompoundTag compound, boolean clientPacket) {
+    protected void write(CompoundTag compound, net.minecraft.core.HolderLookup.Provider pRegistries, boolean clientPacket) {
         compound.putBoolean("Running", running);
         compound.putInt("Ticks", runningTicks);
-        super.write(compound, clientPacket);
+        super.write(compound, pRegistries, clientPacket);
     }
 
     @Override
@@ -130,7 +130,7 @@ public class GoldenMixerBlockEntity extends BasinOperatingBlockEntity {
             if ((!level.isClientSide || isVirtual()) && runningTicks == ticksHigh()) {
                 if (processingTicks < 0) {
                     var recipeSpeed = 1f;
-                    if (currentRecipe instanceof ProcessingRecipe<?> recipe) {
+                    if (currentRecipe instanceof ProcessingRecipe<?, ?> recipe) {
                         int t = recipe.getProcessingDuration();
                         if (t != 0) recipeSpeed = t / 100f;
                     }
@@ -197,12 +197,11 @@ public class GoldenMixerBlockEntity extends BasinOperatingBlockEntity {
         var basinBlockEntity = basin.get();
         if (basin.isEmpty()) return matchingRecipes;
 
-        var availableItems = basinBlockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).resolve().orElse(null);
-        if (availableItems == null) return matchingRecipes;
-        for (int i = 0; i < availableItems.getSlots(); i++) {
-            var stack = availableItems.getStackInSlot(i);
+        var availableItems = basinBlockEntity.getInvs();
+        for (int i = 0; i < availableItems.getFirst().getSlots(); i++) {
+            var stack = availableItems.getFirst().getStackInSlot(i);
             if (stack.isEmpty()) continue;
-            var list = PotionMixingRecipes.BY_ITEM.get(stack.getItem());
+            var list = PotionMixingRecipes.sortRecipesByItem(level).get(stack.getItem());
             if (list == null) continue;
             for (MixingRecipe mixingRecipe : list) if (matchBasinRecipe(mixingRecipe)) matchingRecipes.add(mixingRecipe);
         }
@@ -210,10 +209,11 @@ public class GoldenMixerBlockEntity extends BasinOperatingBlockEntity {
     }
 
     @Override
-    protected <C extends Container> boolean matchStaticFilters(Recipe<C> recipe) {
+    protected boolean matchStaticFilters(RecipeHolder<? extends Recipe<?>> recipeHolder) {
+        var recipe = recipeHolder.value();
         return ((recipe instanceof CraftingRecipe && !(recipe instanceof ShapedRecipe)
                 && AllConfigs.server().recipes.allowShapelessInMixer.get() && recipe.getIngredients().size() > 1
-                && !MechanicalPressBlockEntity.canCompress(recipe)) && !AllRecipeTypes.shouldIgnoreInAutomation(recipe)
+                && !MechanicalPressBlockEntity.canCompress(recipe)) && !AllRecipeTypes.shouldIgnoreInAutomation(recipeHolder)
                 || recipe.getType() == AllRecipeTypes.MIXING.getType());
     }
 

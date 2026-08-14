@@ -1,13 +1,19 @@
 package com.chocoboy.create_henry.infrastructure.datagen;
 
+import com.chocoboy.create_henry.content.recipes.SandingRecipe;
 import com.chocoboy.create_henry.registry.HenryRecipeTypes;
 import com.simibubi.create.AllItems;
+import com.simibubi.create.api.data.recipe.BaseRecipeProvider.GeneratedRecipe;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
+import java.util.concurrent.CompletableFuture;
+
 @SuppressWarnings("unused")
-public final class SandingRecipeGen extends HenryProcessingRecipeGen {
+public final class SandingRecipeGen extends HenryProcessingRecipeGen<SandingRecipe> {
 
 	GeneratedRecipe
 
@@ -20,12 +26,12 @@ public final class SandingRecipeGen extends HenryProcessingRecipeGen {
 			WEATHERED_CUT_COPPER = convert(Blocks.OXIDIZED_CUT_COPPER, Blocks.WEATHERED_CUT_COPPER),
 
 			CUT_COPPER_SLAB = convert(Blocks.EXPOSED_CUT_COPPER_SLAB, Blocks.CUT_COPPER_SLAB),
-			EXPOSED_CUT_COPPER_SLAB = convert(Blocks.WEATHERED_CUT_COPPER_SLAB, Blocks.EXPOSED_CUT_COPPER_SLAB),
-			WEATHERED_CUT_COPPER_SLAB = convert(Blocks.OXIDIZED_CUT_COPPER_SLAB, Blocks.WEATHERED_CUT_COPPER_SLAB),
+			EXPOSED_CUT_COPPER_SLAB = convert(Blocks.WEATHERED_CUT_COPPER_SLAB, Blocks.CUT_COPPER_SLAB),
+			WEATHERED_CUT_COPPER_SLAB = convert(Blocks.OXIDIZED_CUT_COPPER_SLAB, Blocks.CUT_COPPER_SLAB),
 
 			CUT_COPPER_STAIRS = convert(Blocks.EXPOSED_CUT_COPPER_STAIRS, Blocks.CUT_COPPER_STAIRS),
-			EXPOSED_CUT_COPPER_STAIRS = convert(Blocks.WEATHERED_CUT_COPPER_STAIRS, Blocks.EXPOSED_CUT_COPPER_STAIRS),
-			WEATHERED_CUT_COPPER_STAIRS = convert(Blocks.OXIDIZED_CUT_COPPER_STAIRS, Blocks.WEATHERED_CUT_COPPER_STAIRS),
+			EXPOSED_CUT_COPPER_STAIRS = convert(Blocks.WEATHERED_CUT_COPPER_STAIRS, Blocks.CUT_COPPER_STAIRS),
+			WEATHERED_CUT_COPPER_STAIRS = convert(Blocks.OXIDIZED_CUT_COPPER_STAIRS, Blocks.CUT_COPPER_STAIRS),
 
 			ANDESITE = convert(Items.POLISHED_ANDESITE, Items.ANDESITE),
 			ANDESITE_SLAB = convert(Items.POLISHED_ANDESITE_SLAB, Items.ANDESITE_SLAB),
@@ -52,8 +58,8 @@ public final class SandingRecipeGen extends HenryProcessingRecipeGen {
 
 			POLISHED_ROSE_QUARTZ = convert(AllItems.ROSE_QUARTZ::get, AllItems.POLISHED_ROSE_QUARTZ::get);
 
-	public SandingRecipeGen(PackOutput dataGenerator) {
-		super(dataGenerator);
+	public SandingRecipeGen(PackOutput output, CompletableFuture<HolderLookup.Provider> lookups) {
+		super(output, lookups, SandingRecipe::new);
 	}
 
 	@Override

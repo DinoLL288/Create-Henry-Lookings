@@ -26,8 +26,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
@@ -63,14 +63,14 @@ public final class SandingType extends AbstractFanProcessingType {
     // region Polish compat
 
     public static boolean isPolishProcessingRecipe(Recipe<?> recipe) {
-        if (!(recipe instanceof ProcessingRecipe<?>)) return false;
-        ResourceLocation serializerId = ForgeRegistries.RECIPE_SERIALIZERS.getKey(recipe.getSerializer());
+        if (!(recipe instanceof ProcessingRecipe<?, ?>)) return false;
+        ResourceLocation serializerId = BuiltInRegistries.RECIPE_SERIALIZER.getKey(recipe.getSerializer());
         if (serializerId == null) return false;
         return serializerId.getPath().equals("sandpaper_polishing");
     }
 
     @Nullable
-    public static SandingRecipe toSandingRecipe(ProcessingRecipe<?> processing) {
+    public static SandingRecipe toSandingRecipe(ProcessingRecipe<?, ?> processing) {
         List<Ingredient> ingredients = processing.getIngredients();
         if (ingredients.size() != 1) return null;
         List<ProcessingOutput> outputs = processing.getRollableResults();
@@ -90,7 +90,7 @@ public final class SandingType extends AbstractFanProcessingType {
         List<SandingRecipe> list = new ArrayList<>();
         for (Recipe<?> recipe : manager.getRecipes()) {
             if (!isPolishProcessingRecipe(recipe)) continue;
-            SandingRecipe converted = toSandingRecipe((ProcessingRecipe<?>) recipe);
+            SandingRecipe converted = toSandingRecipe((ProcessingRecipe<?, ?>) recipe);
             if (converted != null) list.add(converted);
         }
         polishRecipes = list;

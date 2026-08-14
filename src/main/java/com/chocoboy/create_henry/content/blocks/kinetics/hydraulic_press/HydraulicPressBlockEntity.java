@@ -9,27 +9,24 @@ import com.simibubi.create.foundation.advancement.AllAdvancements;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
 import com.simibubi.create.foundation.utility.CreateLang;
-import net.createmod.catnip.lang.LangBuilder;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.Container;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.NonNullList;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.FluidAction;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import org.jetbrains.annotations.Nullable;
 import com.chocoboy.create_henry.infrastructure.config.HenryConfigs;
 
 import java.util.List;
@@ -68,7 +65,6 @@ public class HydraulicPressBlockEntity extends MechanicalPressBlockEntity {
                             .add(mb)
                             .style(ChatFormatting.DARK_GRAY))
                     .forGoggles(tooltip, 1);
-
         } else if (fluidStack.isEmpty()) {
             CreateLang.translate("gui.goggles.fluid_container.capacity")
                     .add(CreateLang.number(tank.getPrimaryHandler().getTankCapacity(0))
@@ -88,8 +84,8 @@ public class HydraulicPressBlockEntity extends MechanicalPressBlockEntity {
                 .translate("generic.unit.stress")
                 .style(ChatFormatting.AQUA)
                 .space()
-                .add(CreateLang.translate("gui.goggles.at_current_speed")
-                        .style(ChatFormatting.DARK_GRAY))
+                        .add(CreateLang.translate("gui.goggles.at_current_speed")
+                                .style(ChatFormatting.DARK_GRAY))
                 .forGoggles(tooltip, 1);
         return true;
     }
@@ -101,17 +97,16 @@ public class HydraulicPressBlockEntity extends MechanicalPressBlockEntity {
         behaviours.add(tank);
     }
 
-    @Override
-    public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-        if (cap == ForgeCapabilities.FLUID_HANDLER &&
-                side.getAxis() == getBlockState().getValue(HydraulicPressBlock.HORIZONTAL_FACING).getClockWise().getAxis() &&
-                side.getAxis() != Direction.Axis.Y)
-            return tank.getCapability()
-                    .cast();
-        return super.getCapability(cap, side);
+    public IFluidHandler getFluidHandler(@Nullable Direction side) {
+        if (tank == null) return null;
+        if (side != null
+                && side.getAxis() == getBlockState().getValue(HydraulicPressBlock.HORIZONTAL_FACING).getClockWise().getAxis()
+                && side.getAxis() != Direction.Axis.Y)
+            return tank.getPrimaryHandler();
+        return null;
     }
 
-    public static <C extends Container> boolean canCompress(Recipe<C> recipe) {
+    public static boolean canCompress(Recipe<?> recipe) {
         if (!(recipe instanceof CraftingRecipe))
             return false;
         NonNullList<Ingredient> ingredients = recipe.getIngredients();
@@ -119,9 +114,10 @@ public class HydraulicPressBlockEntity extends MechanicalPressBlockEntity {
     }
 
     @Override
-    protected <C extends Container> boolean matchStaticFilters(Recipe<C> recipe) {
+    protected boolean matchStaticFilters(RecipeHolder<? extends Recipe<?>> recipeHolder) {
+        Recipe<?> recipe = recipeHolder.value();
         return (recipe instanceof CraftingRecipe && !(recipe instanceof MechanicalCraftingRecipe) && canCompress(recipe)
-                && !AllRecipeTypes.shouldIgnoreInAutomation(recipe))
+                && !AllRecipeTypes.shouldIgnoreInAutomation(recipeHolder))
                 || recipe.getType() == AllRecipeTypes.COMPACTING.getType()
                 || recipe.getType() == HenryRecipeTypes.HYDRAULIC_COMPACTING.getType();
     }
@@ -137,8 +133,8 @@ public class HydraulicPressBlockEntity extends MechanicalPressBlockEntity {
     }
 
     @Override
-    public void onItemPressed(ItemStack result) {
-        super.onItemPressed(result);
+    public void onItemPressed(ItemStack stack) {
+        super.onItemPressed(stack);
         drainFluid();
         if (getProcessFluid(Fluids.LAVA))
             award(AllAdvancements.PRESS);
@@ -146,9 +142,9 @@ public class HydraulicPressBlockEntity extends MechanicalPressBlockEntity {
 
     protected void drainFluid() {
         if (getProcessFluid(Fluids.LAVA)) {
-            tank.getPrimaryHandler().drain(HenryConfigs.server().recipes.hydraulicLavaDrainPressing.get(), IFluidHandler.FluidAction.EXECUTE);
+            tank.getPrimaryHandler().drain(HenryConfigs.server().recipes.hydraulicLavaDrainPressing.get(), FluidAction.EXECUTE);
         } else {
-            tank.getPrimaryHandler().drain(HenryConfigs.server().recipes.hydraulicFluidDrainPressing.get(), IFluidHandler.FluidAction.EXECUTE);
+            tank.getPrimaryHandler().drain(HenryConfigs.server().recipes.hydraulicFluidDrainPressing.get(), FluidAction.EXECUTE);
         }
     }
 

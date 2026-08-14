@@ -100,7 +100,7 @@ public abstract class HenryFanProcessingCategory<T extends Recipe<?>> extends Cr
 
     protected abstract void renderAttachedBlock(GuiGraphics graphics);
 
-    public static abstract class MultiOutput<T extends ProcessingRecipe<?>> extends HenryFanProcessingCategory<T> {
+    public static abstract class MultiOutput<T extends ProcessingRecipe<?, ?>> extends HenryFanProcessingCategory<T> {
 
         public MultiOutput(Info<T> info) {
             super(info);
@@ -143,7 +143,7 @@ public abstract class HenryFanProcessingCategory<T extends Recipe<?>> extends Cr
 
     }
 
-    public static class SimpleBlock<T extends ProcessingRecipe<?>> extends MultiOutput<T> {
+    public static class SimpleBlock<T extends ProcessingRecipe<?, ?>> extends MultiOutput<T> {
 
         private final BlockState blockState;
 

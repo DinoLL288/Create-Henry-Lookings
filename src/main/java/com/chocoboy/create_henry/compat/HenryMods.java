@@ -4,10 +4,10 @@ import com.chocoboy.create_henry.registry.HenryTags;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.foundation.data.TagGen;
 import com.tterrag.registrate.providers.RegistrateTagsProvider;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.fml.ModList;
 import com.chocoboy.create_henry.util.Lang;
 
 import java.util.Optional;
@@ -28,11 +28,11 @@ public enum HenryMods {
     }
 
     public ResourceLocation rl(String path) {
-        return new ResourceLocation(id, path);
+        return ResourceLocation.fromNamespaceAndPath(id, path);
     }
 
     public Block getBlock(String id) {
-        return ForgeRegistries.BLOCKS.getValue(rl(id));
+        return BuiltInRegistries.BLOCK.getValue(rl(id));
     }
 
     public boolean isLoaded() {

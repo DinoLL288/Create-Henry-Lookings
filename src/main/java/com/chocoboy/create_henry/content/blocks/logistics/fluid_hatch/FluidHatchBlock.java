@@ -34,9 +34,9 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.common.util.FakePlayer;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -86,7 +86,7 @@ public class FluidHatchBlock extends HorizontalDirectionalBlock implements IBE<F
         var neighborBE = level.getBlockEntity(neighborPos);
         if (neighborBE == null) return InteractionResult.FAIL;
 
-        var targetInv = neighborBE.getCapability(ForgeCapabilities.FLUID_HANDLER, facing.getOpposite()).orElse(null);
+        var targetInv = level.getCapability(Capabilities.FluidHandler.BLOCK, neighborPos, facing.getOpposite());
         if (targetInv == null) return InteractionResult.FAIL;
 
         var filter = BlockEntityBehaviour.get(level, pos, FilteringBehaviour.TYPE);
