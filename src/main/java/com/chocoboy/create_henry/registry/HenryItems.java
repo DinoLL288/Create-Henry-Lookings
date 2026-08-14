@@ -24,7 +24,7 @@ import static com.tterrag.registrate.providers.RegistrateRecipeProvider.has;
 import static com.chocoboy.create_henry.HenryCreate.REGISTRATE;
 import static com.chocoboy.create_henry.registry.HenryTags.forgeItemTag;
 
-@SuppressWarnings({"unused", "deprecation", "all"})
+@SuppressWarnings({"unused", "deprecation", "all", "rawtypes"})
 public class HenryItems {
 
 	public static final ItemEntry<MilkshakeItem> CHOCOLATE_MILKSHAKE = milkshake("Chocolate Milkshake", () -> new MobEffectInstance(
@@ -109,7 +109,7 @@ public class HenryItems {
 			.tab(HenryCreativeModeTabs.BASE_CREATIVE_TAB.getKey())
 			.register();
 
-	public static final ItemEntry<Item> COAL_PIECE = REGISTRATE.item("coal_piece", p -> new Item(p) {
+	public static final ItemEntry<Item> COAL_PIECE = REGISTRATE.<Item>item("coal_piece", p -> new Item(p) {
 		@Override
 		public int getBurnTime(ItemStack stack, net.minecraft.world.item.crafting.RecipeType<?> recipeType) {
 			return 200;
@@ -137,7 +137,7 @@ public class HenryItems {
 	private static ItemEntry<MilkshakeItem> milkshake(String name, Supplier<MobEffectInstance> effect) {
 		String id = name.toLowerCase().replace(" ", "_");
 		FoodProperties food = new FoodProperties.Builder()
-				.nutrition(4).saturationMod(0.3f).alwaysEat()
+				.nutrition(4).saturationModifier(0.3f).alwaysEdible()
 				.effect(effect, 1.0f)
 				.build();
 		return REGISTRATE.item(id, p -> new MilkshakeItem(p.food(food).stacksTo(16)))

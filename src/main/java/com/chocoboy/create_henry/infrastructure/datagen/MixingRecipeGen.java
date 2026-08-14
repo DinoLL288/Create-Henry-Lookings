@@ -18,7 +18,7 @@ import net.neoforged.neoforge.common.Tags;
 
 import java.util.concurrent.CompletableFuture;
 
-import static com.tterrag.registrate.util.entry.DataIngredient.items;
+
 
 @SuppressWarnings("unused")
 public final class MixingRecipeGen extends HenryProcessingRecipeGen<MixingRecipe> {
@@ -41,7 +41,7 @@ public final class MixingRecipeGen extends HenryProcessingRecipeGen<MixingRecipe
 
 	VANILLA_MILKSHAKE = milkshake(
 			"vanilla_milkshake",
-			items(Items.DANDELION, Items.BLUE_ORCHID),
+			Ingredient.of(Items.DANDELION, Items.BLUE_ORCHID),
 			HenryFluids.VANILLA_MILKSHAKE
 	),
 

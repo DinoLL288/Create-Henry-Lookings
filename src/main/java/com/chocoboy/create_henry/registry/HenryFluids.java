@@ -177,9 +177,13 @@ public class HenryFluids {
 
     private static boolean isAdjacentToFluid(BaseFlowingFluid fluid, Level level, BlockPos pos) {
         if (level.getFluidState(pos).is(fluid)) return true;
-        boolean adjacentFluid = level.getFluidState(pos.relative(Direction.Axis.X)).is(fluid)
-                || level.getFluidState(pos.relative(Direction.Axis.Y)).is(fluid)
-                || level.getFluidState(pos.relative(Direction.Axis.Z)).is(fluid);
+        boolean adjacentFluid = false;
+        for (Direction direction : Direction.values()) {
+            if (level.getFluidState(pos.relative(direction)).is(fluid)) {
+                adjacentFluid = true;
+                break;
+            }
+        }
         boolean replaceable = level.getBlockState(pos).isAir() || level.getBlockState(pos).canBeReplaced();
         return adjacentFluid && replaceable && level.getFluidState(pos).isEmpty();
     }

@@ -75,9 +75,10 @@ public enum HenryRecipeTypes implements IRecipeTypeInfo {
 		return (RecipeType<R>) type.get();
 	}
 
+	@SuppressWarnings("unchecked")
 	public <C extends RecipeInput, T extends Recipe<C>> Optional<T> find(C inv, Level world) {
 		return world.getRecipeManager()
-				.getRecipeFor(getType(), inv, world)
+				.getRecipeFor(this.<C, T>getType(), inv, world)
 				.map(RecipeHolder::value);
 	}
 

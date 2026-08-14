@@ -22,7 +22,7 @@ public class HenryCreativeModeTabs {
         // Tabs are auto-registered via Registrate.defaultCreativeTab()
     }
 
-    private static Registrate registrate() {
+    private static CreateRegistrate registrate() {
         return HenryCreate.registrate();
     }
 }
