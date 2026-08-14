@@ -47,7 +47,7 @@ public enum HenryParticleTypes {
     }
 
     private static class ParticleEntry<D extends ParticleOptions> {
-        private static final DeferredRegister<ParticleType<?>> REGISTER = DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPES, HenryCreate.MOD_ID);
+        private static final DeferredRegister<ParticleType<?>> REGISTER = DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPE, HenryCreate.MOD_ID);
 
         private final String name;
         private final Supplier<? extends ICustomParticleData<D>> typeFactory;

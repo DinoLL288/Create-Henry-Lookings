@@ -9,6 +9,8 @@ import com.simibubi.create.foundation.advancement.AllAdvancements;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
 import com.simibubi.create.foundation.utility.CreateLang;
+import net.createmod.catnip.lang.LangBuilder;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -16,14 +18,13 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.NonNullList;
+import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.neoforged.neoforge.fluids.FluidAction;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
@@ -142,9 +143,9 @@ public class HydraulicPressBlockEntity extends MechanicalPressBlockEntity {
 
     protected void drainFluid() {
         if (getProcessFluid(Fluids.LAVA)) {
-            tank.getPrimaryHandler().drain(HenryConfigs.server().recipes.hydraulicLavaDrainPressing.get(), FluidAction.EXECUTE);
+            tank.getPrimaryHandler().drain(HenryConfigs.server().recipes.hydraulicLavaDrainPressing.get(), IFluidHandler.FluidAction.EXECUTE);
         } else {
-            tank.getPrimaryHandler().drain(HenryConfigs.server().recipes.hydraulicFluidDrainPressing.get(), FluidAction.EXECUTE);
+            tank.getPrimaryHandler().drain(HenryConfigs.server().recipes.hydraulicFluidDrainPressing.get(), IFluidHandler.FluidAction.EXECUTE);
         }
     }
 

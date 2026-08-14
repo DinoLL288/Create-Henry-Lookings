@@ -1,6 +1,7 @@
 package com.chocoboy.create_henry.content.blocks.logistics.smart_hopper;
 
 import com.chocoboy.create_henry.registry.HenryBlockEntityTypes;
+import com.mojang.serialization.MapCodec;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
@@ -42,6 +43,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 public class SmartHopperBlock extends Block implements IWrenchable, IBE<SmartHopperBlockEntity> {
+    public static final MapCodec<SmartHopperBlock> CODEC = simpleCodec(SmartHopperBlock::new);
 
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final DirectionProperty FACING = BlockStateProperties.FACING_HOPPER;
@@ -50,6 +52,11 @@ public class SmartHopperBlock extends Block implements IWrenchable, IBE<SmartHop
     public SmartHopperBlock(Properties properties) {
         super(properties);
         registerDefaultState(defaultBlockState().setValue(FACING, Direction.DOWN).setValue(POWERED, false));
+    }
+
+    @Override
+    protected MapCodec<? extends Block> codec() {
+        return CODEC;
     }
 
     // region Block state
@@ -81,7 +88,7 @@ public class SmartHopperBlock extends Block implements IWrenchable, IBE<SmartHop
     // region Interaction
 
     @Override
-    public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         if (!level.isClientSide) {
             if (level.getBlockEntity(pos) instanceof SmartHopperBlockEntity be) player.openMenu(be);
             return InteractionResult.CONSUME;

@@ -49,7 +49,6 @@ public abstract class DirectionalMotorBlock<T extends SmartBlockEntity> extends 
         return true;
     }
 
-    @Override
     public boolean isPathfindable(BlockState state, BlockGetter reader, BlockPos pos, PathComputationType type) {
         return false;
     }

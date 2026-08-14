@@ -1,30 +1,33 @@
 package com.chocoboy.create_henry.content.blocks.kinetics.furnace_engine;
 
-import com.mojang.brigadier.StringReader;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.simibubi.create.foundation.particle.ICustomParticleData;
-import com.simibubi.create.foundation.particle.SpriteParticleData;
+import com.chocoboy.create_henry.registry.HenryParticleTypes;
+import com.simibubi.create.foundation.particle.ICustomParticleDataWithSprite;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.client.particle.ParticleEngine.SpriteParticleRegistration;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-import java.util.Locale;
+public class SmokeJetParticleData implements ParticleOptions, ICustomParticleDataWithSprite<SmokeJetParticleData> {
 
-public class SmokeJetParticleData extends SpriteParticleData<SmokeJetParticleData> {
-
-    public static final Codec<SmokeJetParticleData> CODEC = RecordCodecBuilder.create(i -> i
+    public static final MapCodec<SmokeJetParticleData> CODEC = RecordCodecBuilder.mapCodec(i -> i
             .group(Codec.FLOAT.fieldOf("speed")
                     .forGetter(p -> p.speed))
             .apply(i, SmokeJetParticleData::new));
 
+    public static final StreamCodec<ByteBuf, SmokeJetParticleData> STREAM_CODEC = ByteBufCodecs.FLOAT.map(
+            SmokeJetParticleData::new, p -> p.speed);
+
     float speed;
 
     public SmokeJetParticleData(float speed) {
-        super(speed);
         this.speed = speed;
     }
 
@@ -38,23 +41,18 @@ public class SmokeJetParticleData extends SpriteParticleData<SmokeJetParticleDat
     }
 
     @Override
-    public void writeToNetwork(FriendlyByteBuf buffer) {
-        buffer.writeFloat(speed);
-    }
-
-    @Override
-    public String writeToString() {
-        return String.format(Locale.ROOT, "%s %f", HenryParticleTypes.SMOKE_JET.parameter(), speed);
-    }
-
-    @Override
-    public Codec<SmokeJetParticleData> getCodec(ParticleType<SmokeJetParticleData> type) {
+    public MapCodec<SmokeJetParticleData> getCodec(ParticleType<SmokeJetParticleData> type) {
         return CODEC;
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public ParticleEngine.SpriteParticleRegistration<SmokeJetParticleData> getMetaFactory() {
+    public SpriteParticleRegistration<SmokeJetParticleData> getMetaFactory() {
         return SmokeJetParticle.Factory::new;
+    }
+
+    @Override
+    public StreamCodec<? super RegistryFriendlyByteBuf, SmokeJetParticleData> getStreamCodec() {
+        return STREAM_CODEC;
     }
 }

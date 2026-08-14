@@ -39,7 +39,7 @@ public class HenryConfigs {
 			T config = factory.get();
 			config.registerAll(builder);
 			return config;
-		}).build();
+		});
 
 		T config = specPair.getLeft();
 		config.specification = specPair.getRight();

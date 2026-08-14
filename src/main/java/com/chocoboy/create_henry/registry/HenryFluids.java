@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.fluids.BaseFlowingFluid;
 import net.neoforged.neoforge.fluids.FluidInteractionRegistry;
+import net.minecraft.world.level.material.Fluid;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -137,7 +138,7 @@ public class HenryFluids {
     // Lava interaction helpers
 
     private static void registerLavaInteraction(BaseFlowingFluid fluid, Block oreStone, Block defaultStone) {
-        var lavaType = ForgeMod.LAVA_TYPE.get();
+        var lavaType = NeoForgeMod.LAVA_TYPE.value();
 
         // Source lava touching this fluid -> obsidian
         FluidInteractionRegistry.addInteraction(lavaType, new FluidInteractionRegistry.InteractionInformation(

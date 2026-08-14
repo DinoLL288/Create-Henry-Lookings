@@ -110,7 +110,7 @@ public class PoweredFlywheelBlockEntity extends GeneratingKineticBlockEntity {
 		if (compound.contains("EnginePos")) {
 			enginePos = NbtUtils.readBlockPos(compound, "EnginePos").orElse(null);
 			engineEfficiency = compound.getFloat("EnginePower");
-			capacityKey = BuiltInRegistries.BLOCK.getValue(ResourceLocation.parse(compound.getString("EngineType")));
+			capacityKey = BuiltInRegistries.BLOCK.get(ResourceLocation.parse(compound.getString("EngineType")));
 	}
 
 		if (clientPacket) {

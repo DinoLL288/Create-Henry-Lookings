@@ -32,7 +32,7 @@ public enum HenryMods {
     }
 
     public Block getBlock(String id) {
-        return BuiltInRegistries.BLOCK.getValue(rl(id));
+        return BuiltInRegistries.BLOCK.get(rl(id));
     }
 
     public boolean isLoaded() {

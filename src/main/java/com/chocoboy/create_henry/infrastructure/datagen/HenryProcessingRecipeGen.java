@@ -1,10 +1,10 @@
 package com.chocoboy.create_henry.infrastructure.datagen;
 
 import com.chocoboy.create_henry.HenryCreate;
-import com.simibyi.create.api.data.recipe.BaseRecipeProvider.GeneratedRecipe;
-import com.simibyi.create.api.data.recipe.ProcessingRecipeGen;
-import com.simibyi.create.content.processing.recipe.ProcessingRecipeParams;
-import com.simibyi.create.content.processing.recipe.StandardProcessingRecipe;
+import com.simibubi.create.api.data.recipe.BaseRecipeProvider.GeneratedRecipe;
+import com.simibubi.create.api.data.recipe.ProcessingRecipeGen;
+import com.simibubi.create.content.processing.recipe.ProcessingRecipeParams;
+import com.simibubi.create.content.processing.recipe.StandardProcessingRecipe;
 import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;

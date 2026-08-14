@@ -3,7 +3,7 @@ package com.chocoboy.create_henry.infrastructure.datagen;
 import com.chocoboy.create_henry.HenryCreate;
 import com.chocoboy.create_henry.registry.HenryFluids;
 import com.chocoboy.create_henry.registry.HenryItems;
-import com.simibyi.create.api.data.recipe.BaseRecipeProvider.GeneratedRecipe;
+import com.simibubi.create.api.data.recipe.BaseRecipeProvider.GeneratedRecipe;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Items;

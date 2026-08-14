@@ -36,7 +36,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
-import net.neoforged.neoforge.common.util.ForgeSoundType;
+import net.neoforged.neoforge.common.util.DeferredSoundType;
 import com.chocoboy.create_henry.HenryCreate;
 import com.chocoboy.create_henry.content.blocks.contraptions.bore_block.BoreBlock;
 import com.chocoboy.create_henry.content.blocks.contraptions.bore_block.BoreBlockMovementBehaviour;
@@ -171,7 +171,7 @@ public class HenryBlocks {
 			REGISTRATE.block("bore_block", BoreBlock::new)
 			.initialProperties(SharedProperties::stone)
 			.properties(p -> p.mapColor(MapColor.STONE))
-			.properties(p -> p.sound(new ForgeSoundType(0.9f, 1.25f, () -> SoundEvents.NETHERITE_BLOCK_BREAK,
+			.properties(p -> p.sound(new DeferredSoundType(0.9f, 1.25f, () -> SoundEvents.NETHERITE_BLOCK_BREAK,
 					() -> SoundEvents.NETHERITE_BLOCK_STEP, () -> SoundEvents.NETHERITE_BLOCK_PLACE,
 					() -> SoundEvents.NETHERITE_BLOCK_HIT, () -> SoundEvents.NETHERITE_BLOCK_FALL)))
 			.onRegister(movementBehaviour(new BoreBlockMovementBehaviour()))

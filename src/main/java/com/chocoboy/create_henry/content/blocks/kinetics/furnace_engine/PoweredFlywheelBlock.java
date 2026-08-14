@@ -60,7 +60,6 @@ public class PoweredFlywheelBlock extends RotatedPillarKineticBlock implements I
         return 1.75F;
     }
 
-    @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
         return AllBlocks.FLYWHEEL.asStack();
     }

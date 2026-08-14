@@ -22,16 +22,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 
-import java.util.Collections;
-
 import static com.chocoboy.create_henry.registry.HenryTags.NameSpace.FORGE;
 
 @SuppressWarnings({"all"})
 public class HenryTags {
 	public static <T> TagKey<T> optionalTag(Registry<T> registry,
 											ResourceLocation id) {
-		return registry.tags()
-				.createOptionalTagKey(id, Collections.emptySet());
+		return TagKey.create(registry.key(), id);
 	}
 
 	public static <T> TagKey<T> forgeTag(Registry<T> registry, String path) {

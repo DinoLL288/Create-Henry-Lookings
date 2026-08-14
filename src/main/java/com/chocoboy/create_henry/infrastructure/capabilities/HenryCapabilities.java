@@ -10,11 +10,11 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 public class HenryCapabilities {
 
     public static void register(RegisterCapabilitiesEvent event) {
-        event.registerBlockEntity(HenryBlockEntityTypes.HYDRAULIC_PRESS.get(), Capabilities.FluidHandler.BLOCK,
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, HenryBlockEntityTypes.HYDRAULIC_PRESS.get(),
                 HydraulicPressBlockEntity::getFluidHandler);
-        event.registerBlockEntity(HenryBlockEntityTypes.ROLL_TABLE.get(), Capabilities.ItemHandler.BLOCK,
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, HenryBlockEntityTypes.ROLL_TABLE.get(),
                 RollTableBlockEntity::getItemHandler);
-        event.registerBlockEntity(HenryBlockEntityTypes.SMART_HOPPER.get(), Capabilities.ItemHandler.BLOCK,
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, HenryBlockEntityTypes.SMART_HOPPER.get(),
                 SmartHopperBlockEntity::getItemHandler);
     }
 }

@@ -10,8 +10,11 @@ import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.data.recipes.RecipeBuilder;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import java.util.function.Supplier;
@@ -73,7 +76,7 @@ public class HenryItems {
 
 	public static final ItemEntry<Item> GOLDEN_WHISK = REGISTRATE.item("golden_whisk", Item::new)
 			.model((c, p) -> p.withExistingParent(c.getId().getPath(),
-					new ResourceLocation("item/generated")).texture("layer0",
+					ResourceLocation.withDefaultNamespace("item/generated")).texture("layer0",
 					ResourceLocation.fromNamespaceAndPath(HenryCreate.MOD_ID,"item/" + c.getId().getPath())))
 			.lang("Golden Whisk")
 			.tab(HenryCreativeModeTabs.BASE_CREATIVE_TAB.getKey())
@@ -81,7 +84,7 @@ public class HenryItems {
 
 	public static final ItemEntry<Item> RAW_RUBBER = REGISTRATE.item("raw_rubber", Item::new)
 			.model((c, p) -> p.withExistingParent(c.getId().getPath(),
-					new ResourceLocation("item/generated")).texture("layer0",
+					ResourceLocation.withDefaultNamespace("item/generated")).texture("layer0",
 					ResourceLocation.fromNamespaceAndPath(HenryCreate.MOD_ID,"item/" + c.getId().getPath())))
 			.tag(forgeItemTag("raw_rubbers"))
 			.lang("Raw Rubber")
@@ -90,7 +93,7 @@ public class HenryItems {
 
 	public static final ItemEntry<Item> RUBBER = REGISTRATE.item("rubber", Item::new)
 			.model((c, p) -> p.withExistingParent(c.getId().getPath(),
-					new ResourceLocation("item/generated")).texture("layer0",
+					ResourceLocation.withDefaultNamespace("item/generated")).texture("layer0",
 					ResourceLocation.fromNamespaceAndPath(HenryCreate.MOD_ID,"item/" + c.getId().getPath())))
 			.tag(forgeItemTag("rubbers"), forgeItemTag("crude_rubbers"))
 			.lang("Rubber")
@@ -99,7 +102,7 @@ public class HenryItems {
 
 	public static final ItemEntry<Item> LAPIS_LAZULI_SHARD = REGISTRATE.item("lapis_lazuli_shard", Item::new)
 			.model((c, p) -> p.withExistingParent(c.getId().getPath(),
-					new ResourceLocation("item/generated")).texture("layer0",
+					ResourceLocation.withDefaultNamespace("item/generated")).texture("layer0",
 					ResourceLocation.fromNamespaceAndPath(HenryCreate.MOD_ID,"item/" + c.getId().getPath())))
 			.tag(forgeItemTag("nuggets/lapis"), forgeItemTag("nuggets"))
 			.lang("Lapis Lazuli Shard")
@@ -111,9 +114,9 @@ public class HenryItems {
 		public int getBurnTime(ItemStack stack, net.minecraft.world.item.crafting.RecipeType<?> recipeType) {
 			return 200;
 		}
-	})
+			})
 			.model((c, p) -> p.withExistingParent(c.getId().getPath(),
-					new ResourceLocation("item/generated")).texture("layer0",
+					ResourceLocation.withDefaultNamespace("item/generated")).texture("layer0",
 					ResourceLocation.fromNamespaceAndPath(HenryCreate.MOD_ID,"item/" + c.getId().getPath())))
 			.tag(forgeItemTag("nuggets/coal"), forgeItemTag("nuggets"))
 			.lang("Coal Piece")

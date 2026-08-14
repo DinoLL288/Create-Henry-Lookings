@@ -75,7 +75,6 @@ public class HydraulicPressBlock extends HorizontalKineticBlock implements IBE<H
         return HenryBlockEntityTypes.HYDRAULIC_PRESS.get();
     }
 
-    @Override
     public boolean isPathfindable(BlockState state, BlockGetter reader, BlockPos pos, PathComputationType type) {
         return false;
     }

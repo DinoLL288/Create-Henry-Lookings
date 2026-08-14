@@ -2,6 +2,7 @@ package com.chocoboy.create_henry.content.blocks.logistics.fluid_hatch;
 
 import com.chocoboy.create_henry.registry.HenryBlockEntityTypes;
 import com.chocoboy.create_henry.registry.HenrySoundEvents;
+import com.mojang.serialization.MapCodec;
 import com.simibubi.create.AllShapes;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.fluids.tank.CreativeFluidTankBlockEntity;
@@ -17,6 +18,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -25,6 +27,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -43,12 +46,18 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 public class FluidHatchBlock extends HorizontalDirectionalBlock implements IBE<FluidHatchBlockEntity>, IWrenchable, ProperWaterloggedBlock {
+    public static final MapCodec<FluidHatchBlock> CODEC = simpleCodec(FluidHatchBlock::new);
 
     public static final BooleanProperty OPEN = BooleanProperty.create("open");
 
     public FluidHatchBlock(Properties properties) {
         super(properties);
         registerDefaultState(defaultBlockState().setValue(OPEN, false).setValue(WATERLOGGED, false));
+    }
+
+    @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -76,21 +85,21 @@ public class FluidHatchBlock extends HorizontalDirectionalBlock implements IBE<F
     }
 
     @Override
-    public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (level.isClientSide) return InteractionResult.SUCCESS;
-        if (player instanceof FakePlayer) return InteractionResult.SUCCESS;
+    protected @NotNull ItemInteractionResult useItemOn(ItemStack heldStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (level.isClientSide) return ItemInteractionResult.SUCCESS;
+        if (player instanceof FakePlayer) return ItemInteractionResult.SUCCESS;
 
         var stack = player.getItemInHand(hand);
         var facing = state.getValue(FACING);
         var neighborPos = pos.relative(facing);
         var neighborBE = level.getBlockEntity(neighborPos);
-        if (neighborBE == null) return InteractionResult.FAIL;
+        if (neighborBE == null) return ItemInteractionResult.FAIL;
 
         var targetInv = level.getCapability(Capabilities.FluidHandler.BLOCK, neighborPos, facing.getOpposite());
-        if (targetInv == null) return InteractionResult.FAIL;
+        if (targetInv == null) return ItemInteractionResult.FAIL;
 
         var filter = BlockEntityBehaviour.get(level, pos, FilteringBehaviour.TYPE);
-        if (filter == null) return InteractionResult.FAIL;
+        if (filter == null) return ItemInteractionResult.FAIL;
 
         var inventory = player.getInventory();
         var depositItemInHand = !player.isShiftKeyDown();
@@ -124,14 +133,14 @@ public class FluidHatchBlock extends HorizontalDirectionalBlock implements IBE<F
             anyInserted = true;
         }
 
-        if (!anyInserted) return InteractionResult.SUCCESS;
+        if (!anyInserted) return ItemInteractionResult.SUCCESS;
 
         HenrySoundEvents.FLUID_HATCH.playOnServer(level, pos);
         level.setBlockAndUpdate(pos, state.setValue(OPEN, true));
         level.scheduleTick(pos, this, 10);
 
         CreateLang.translate(depositItemInHand ? "item_hatch.deposit_item" : "item_hatch.deposit_inventory").sendStatus(player);
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
     @Override
@@ -160,7 +169,6 @@ public class FluidHatchBlock extends HorizontalDirectionalBlock implements IBE<F
         return HenryBlockEntityTypes.FLUID_HATCH.get();
     }
 
-    @Override
     public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
         return false;
     }

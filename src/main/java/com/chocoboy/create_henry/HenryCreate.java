@@ -77,7 +77,7 @@ public class HenryCreate
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.register(FurnaceEngineBlock.class);
 
         if (net.neoforged.fml.loading.FMLEnvironment.dist == net.neoforged.api.distmarker.Dist.CLIENT) {
-            HenryClient.onCtorClient(modEventBus, net.neoforged.neoforge.common.NeoForge.EVENT_BUS);
+            HenryClient.onCtorClient(modEventBus);
         }
 
         modEventBus.addListener(HenryCreate::init);
