@@ -1,0 +1,16 @@
+{
+  "type": "create:item_application",
+  "ingredients": [
+    {
+      "tag": "forge:stripped_logs"
+    },
+    {
+      "item": "create_henry:rubber"
+    }
+  ],
+  "results": [
+    {
+      "id": "create_henry:rubber_casing"
+    }
+  ]
+}

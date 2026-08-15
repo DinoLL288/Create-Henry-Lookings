@@ -1,0 +1,13 @@
+{
+  "type": "create_henry:freezing",
+  "ingredients": [
+    {
+      "item": "minecraft:snow"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:snow_block"
+    }
+  ]
+}

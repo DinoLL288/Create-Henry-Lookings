@@ -24,7 +24,7 @@ public class HenryPonderPlugin implements PonderPlugin {
 
     @Override
     public void registerTags(PonderTagRegistrationHelper<ResourceLocation> helper) {
-        HenryPonderTags.register();
+        HenryPonderTags.register(helper);
     }
 
     @Override

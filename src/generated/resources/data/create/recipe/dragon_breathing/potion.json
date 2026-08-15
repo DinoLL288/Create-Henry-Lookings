@@ -1,0 +1,13 @@
+{
+  "type": "create_henry:dragon_breathing",
+  "ingredients": [
+    {
+      "item": "minecraft:potion"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:dragon_breath"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "type": "create_henry:seething",
+  "ingredients": [
+    {
+      "item": "minecraft:slime_ball"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:magma_cream"
+    }
+  ]
+}

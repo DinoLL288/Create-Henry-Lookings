@@ -18,6 +18,7 @@ public class HenryLangPartial {
         consume(consumer, "create_henry.recipe.fan_seething", "Bulk Seething");
         consume(consumer, "create_henry.recipe.fan_withering", "Bulk Withering");
         consume(consumer, "create_henry.recipe.fan_dragon_breathing", "Bulk Dragon Breathing");
+        consume(consumer, "create_henry.recipe.hydraulic_compacting", "Hydraulic Compacting");
         consume(consumer, "itemGroup.create_henry.base", "Create: Henry");
         // Multimeter display link: speed source
         consume(consumer, "create_henry.display_source.multimeter_speed", "Multimeter Speed (RPM)");

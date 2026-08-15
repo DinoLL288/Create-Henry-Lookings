@@ -1,0 +1,13 @@
+{
+  "type": "create_henry:sanding",
+  "ingredients": [
+    {
+      "item": "minecraft:polished_andesite_slab"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:andesite_slab"
+    }
+  ]
+}

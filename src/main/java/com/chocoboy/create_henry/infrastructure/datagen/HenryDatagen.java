@@ -15,8 +15,6 @@ import java.util.function.BiConsumer;
 public class HenryDatagen {
 
 	public static void gatherData(GatherDataEvent event) {
-		addExtraRegistrateData();
-
 		DataGenerator generator = event.getGenerator();
 		PackOutput output = generator.getPackOutput();
 		CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
@@ -38,7 +36,7 @@ public class HenryDatagen {
 		}
 	}
 
-	private static void addExtraRegistrateData() {
+	public static void addExtraRegistrateData() {
 		HenryRegistrateTags.addGenerators();
 
 		HenryCreate.registrate().addDataGenerator(ProviderType.LANG, provider -> {

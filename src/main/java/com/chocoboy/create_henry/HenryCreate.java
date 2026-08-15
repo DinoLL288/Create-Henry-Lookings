@@ -73,6 +73,7 @@ public class HenryCreate
         HenryRecipeTypes.register(modEventBus);
         HenryParticleTypes.register(modEventBus);
         HenryPackets.registerPackets();
+        HenryDatagen.addExtraRegistrateData();
 
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.register(FurnaceEngineBlock.class);
 

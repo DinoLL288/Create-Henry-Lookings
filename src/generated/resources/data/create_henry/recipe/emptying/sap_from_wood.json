@@ -1,0 +1,17 @@
+{
+  "type": "create:emptying",
+  "ingredients": [
+    {
+      "tag": "forge:stripped_wood"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:stick"
+    },
+    {
+      "amount": 100,
+      "id": "create_henry:sap"
+    }
+  ]
+}

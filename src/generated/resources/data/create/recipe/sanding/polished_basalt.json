@@ -1,0 +1,13 @@
+{
+  "type": "create_henry:sanding",
+  "ingredients": [
+    {
+      "item": "minecraft:polished_basalt"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:basalt"
+    }
+  ]
+}

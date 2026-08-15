@@ -1,0 +1,13 @@
+{
+  "type": "create_henry:seething",
+  "ingredients": [
+    {
+      "item": "minecraft:end_rod"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:blaze_rod"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "type": "create_henry:hydraulic_compacting",
+  "heat_requirement": "heated",
+  "ingredients": [
+    {
+      "item": "create:cinder_flour"
+    },
+    {
+      "item": "create:cinder_flour"
+    },
+    {
+      "item": "create:scoria"
+    },
+    {
+      "item": "create:scoria"
+    }
+  ],
+  "results": [
+    {
+      "count": 4,
+      "id": "minecraft:netherrack"
+    }
+  ]
+}

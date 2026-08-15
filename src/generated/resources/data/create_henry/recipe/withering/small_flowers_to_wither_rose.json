@@ -1,0 +1,13 @@
+{
+  "type": "create_henry:withering",
+  "ingredients": [
+    {
+      "tag": "minecraft:small_flowers"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:wither_rose"
+    }
+  ]
+}
