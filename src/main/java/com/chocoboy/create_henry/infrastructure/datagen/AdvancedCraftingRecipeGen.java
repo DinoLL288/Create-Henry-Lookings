@@ -9,11 +9,14 @@ import com.simibubi.create.content.processing.sequenced.SequencedAssemblyRecipeB
 import com.chocoboy.create_henry.HenryCreate;
 import com.chocoboy.create_henry.registry.HenryBlocks;
 import com.chocoboy.create_henry.registry.HenryItems;
-import net.createmod.catnip.platform.CatnipServices;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.core.registries.BuiltInRegistries;
+
+import java.util.concurrent.CompletableFuture;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Supplier;
@@ -56,8 +59,8 @@ public final class AdvancedCraftingRecipeGen extends BaseRecipeProvider {
                     .patternLine("CMC")
             );
 
-    public AdvancedCraftingRecipeGen(PackOutput output) {
-        super(output, HenryCreate.MOD_ID);
+    public AdvancedCraftingRecipeGen(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
+        super(output, provider, HenryCreate.MOD_ID);
     }
 
     private GeneratedRecipe createSequencedAssembly(String name, UnaryOperator<SequencedAssemblyRecipeBuilder> transform) {
@@ -92,7 +95,7 @@ public final class AdvancedCraftingRecipeGen extends BaseRecipeProvider {
                         builder.apply(MechanicalCraftingRecipeBuilder.shapedRecipe(result.get(), amount));
                 ResourceLocation location = HenryCreate.asResource(
                         "mechanical_crafting/" +
-                                CatnipServices.REGISTRIES.getKeyOrThrow(result.get().asItem()).getPath());
+                                java.util.Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(result.get().asItem())).getPath());
                 b.build(consumer, location);
             });
         }

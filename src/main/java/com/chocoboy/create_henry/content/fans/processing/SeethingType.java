@@ -98,7 +98,7 @@ public final class SeethingType extends AbstractFanProcessingType {
             blaze.heal(4);
 
         if (!entity.fireImmune()) {
-            entity.igniteForSeconds(10);
+            entity.setRemainingFireTicks(200);
             entity.hurt(level.damageSources().lava(), 10);
         }
 

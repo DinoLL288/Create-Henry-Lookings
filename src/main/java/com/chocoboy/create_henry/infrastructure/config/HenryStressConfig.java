@@ -7,7 +7,7 @@ import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.util.nullness.NonNullUnaryOperator;
 
 import net.createmod.catnip.config.ConfigBase;
-import net.createmod.catnip.platform.CatnipServices;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.ModConfigSpec.Builder;
@@ -52,14 +52,14 @@ public class HenryStressConfig extends ConfigBase {
 
 	@Nullable
 	public DoubleSupplier getImpact(Block block) {
-		ResourceLocation id = CatnipServices.REGISTRIES.getKeyOrThrow(block);
+		ResourceLocation id = java.util.Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(block));
 		ConfigValue<Double> value = this.impacts.get(id);
 		return value == null ? null : value::get;
 	}
 
 	@Nullable
 	public DoubleSupplier getCapacity(Block block) {
-		ResourceLocation id = CatnipServices.REGISTRIES.getKeyOrThrow(block);
+		ResourceLocation id = java.util.Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(block));
 		ConfigValue<Double> value = this.capacities.get(id);
 		return value == null ? null : value::get;
 	}

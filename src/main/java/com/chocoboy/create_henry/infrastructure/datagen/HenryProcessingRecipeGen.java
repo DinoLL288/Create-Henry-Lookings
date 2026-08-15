@@ -5,7 +5,7 @@ import com.simibubi.create.api.data.recipe.BaseRecipeProvider.GeneratedRecipe;
 import com.simibubi.create.api.data.recipe.ProcessingRecipeGen;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeParams;
 import com.simibubi.create.content.processing.recipe.StandardProcessingRecipe;
-import net.createmod.catnip.platform.CatnipServices;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -61,6 +61,6 @@ public abstract class HenryProcessingRecipeGen<R extends StandardProcessingRecip
 	// Utilities
 
 	protected static String getItemName(ItemLike itemLike) {
-		return CatnipServices.REGISTRIES.getKeyOrThrow(itemLike.asItem()).getPath();
+		return java.util.Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(itemLike.asItem())).getPath();
 	}
 }

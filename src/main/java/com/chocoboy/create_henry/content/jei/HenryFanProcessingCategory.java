@@ -36,9 +36,7 @@ public abstract class HenryFanProcessingCategory<T extends Recipe<?>> extends Cr
     }
 
     public static Supplier<ItemStack> getFan(String name) {
-        return () -> HenryBlocks.INDUSTRIAL_FAN.asStack()
-                .setHoverName(Component.translatable(HenryCreate.MOD_ID + ".recipe." + name + ".fan")
-                        .withStyle(style -> style.withItalic(false)));
+        return () -> HenryBlocks.INDUSTRIAL_FAN.asStack();
     }
 
     @Override

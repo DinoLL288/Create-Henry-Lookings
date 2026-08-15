@@ -5,6 +5,7 @@ import com.chocoboy.create_henry.infrastructure.ponder.HenryPonderPlugin;
 import com.chocoboy.create_henry.registry.HenryLangPartial;
 import com.tterrag.registrate.providers.ProviderType;
 import net.createmod.ponder.foundation.PonderIndex;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -18,21 +19,22 @@ public class HenryDatagen {
 
 		DataGenerator generator = event.getGenerator();
 		PackOutput output = generator.getPackOutput();
+		CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
 		if (event.includeServer()) {
-			generator.addProvider(true, new AdvancedCraftingRecipeGen(output));
+			generator.addProvider(true, new AdvancedCraftingRecipeGen(output, lookupProvider));
 
-			generator.addProvider(true, new WashingRecipeGen(output, event.getLookup()));
-			generator.addProvider(true, new SandingRecipeGen(output, event.getLookup()));
-			generator.addProvider(true, new FreezingRecipeGen(output, event.getLookup()));
-			generator.addProvider(true, new SeethingRecipeGen(output, event.getLookup()));
-			generator.addProvider(true, new WitheringRecipeGen(output, event.getLookup()));
-			generator.addProvider(true, new DragonBreathingRecipeGen(output, event.getLookup()));
-			generator.addProvider(true, new ItemApplicationRecipeGen(output, event.getLookup()));
-			generator.addProvider(true, new MixingRecipeGen(output, event.getLookup()));
-			generator.addProvider(true, new EmptyingRecipeGen(output, event.getLookup()));
-			generator.addProvider(true, new FillingRecipeGen(output, event.getLookup()));
-			generator.addProvider(true, new HydraulicRecipeGen(output, event.getLookup()));
+			generator.addProvider(true, new WashingRecipeGen(output, lookupProvider));
+			generator.addProvider(true, new SandingRecipeGen(output, lookupProvider));
+			generator.addProvider(true, new FreezingRecipeGen(output, lookupProvider));
+			generator.addProvider(true, new SeethingRecipeGen(output, lookupProvider));
+			generator.addProvider(true, new WitheringRecipeGen(output, lookupProvider));
+			generator.addProvider(true, new DragonBreathingRecipeGen(output, lookupProvider));
+			generator.addProvider(true, new ItemApplicationRecipeGen(output, lookupProvider));
+			generator.addProvider(true, new MixingRecipeGen(output, lookupProvider));
+			generator.addProvider(true, new EmptyingRecipeGen(output, lookupProvider));
+			generator.addProvider(true, new FillingRecipeGen(output, lookupProvider));
+			generator.addProvider(true, new HydraulicRecipeGen(output, lookupProvider));
 		}
 	}
 

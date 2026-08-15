@@ -15,7 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 public class HenryPonderScenes {
 
     public static void register(PonderSceneRegistrationHelper<ResourceLocation> helper) {
-        PonderSceneRegistrationHelper<ItemProviderEntry<?>> HELPER = helper.withKeyFunction(RegistryEntry::getId);
+        PonderSceneRegistrationHelper<ItemProviderEntry<?, ?>> HELPER = helper.withKeyFunction(RegistryEntry::getId);
 
         HELPER.forComponents(HenryBlocks.MULTIMETER)
                 .addStoryBoard("multimeter", KineticsScenes::multimeter, HenryPonderTags.Henry);

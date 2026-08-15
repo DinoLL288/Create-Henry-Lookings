@@ -32,7 +32,7 @@ public class GaugeObservedPacket implements ServerboundPacketPayload {
 
     @Override
     public BasePacketPayload.PacketTypeProvider getTypeProvider() {
-        return () -> TYPE;
+        return HenryPackets.GAUGE_OBSERVED;
     }
 
     @Override
