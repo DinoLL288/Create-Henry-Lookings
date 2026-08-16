@@ -78,9 +78,9 @@
 <h2 align="center">Requirements</h2>
 
 <p align="center">
-  Minecraft 1.20.1<br/>
-  Create 6.0.8+<br/>
-  Forge 47.4.0+ (also available for Fabric)
+  Minecraft 1.21.1<br/>
+  Create 6.0.10+<br/>
+  NeoForge 21.1.244+
 </p>
 
 <h2 align="center">About</h2>
@@ -89,6 +89,13 @@
   Create: Henry keeps Create's look and feel while adding quality-of-life machines,<br/>
   new processing types, and a few extras that fit the base loop.<br/>
   It is a continuation of the addon "Create: Dreams &amp; Desires" for 1.20.1, but is otherwise independent.
+</p>
+
+<h2 align="center">Credits</h2>
+
+<p align="center">
+  Original author: ChocoBooyy (<a href="https://github.com/ChocoBooyy/Create-Henry">github.com/ChocoBooyy/Create-Henry</a>)<br/>
+  This is a NeoForge port of the original Create: Henry mod.
 </p>
 
 <h2 align="center">Disclaimer</h2>

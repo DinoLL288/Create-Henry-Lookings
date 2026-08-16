@@ -1,16 +1,16 @@
 modLoader="javafml"
 loaderVersion="${loader_version_range}"
 license="${mod_license}"
-issueTrackerURL="https://github.com/ChocoBooyy/Create-Henry/issues"
+issueTrackerURL="https://github.com/Dino288/Create-Henry-Lookings/issues"
 
 [[mods]]
 modId="${mod_id}"
 version="${mod_version}"
 displayName="${mod_name}"
 logoFile="pack.png"
-authors="ChocoBoy, TryMyWagon, LopyLuna"
+authors="ChocoBoy, TryMyWagon, LopyLuna, DinoLL288"
 description='''
-Create: Henry is an addon for the Create mod that add random QoL, items, & blocks features that relates to old Create & New Create versions! It is also a continued version of the addon "Create: Dreams & Desires" for 1.20.1.
+Create: Henry is an addon for the Create mod that add random QoL, items, & blocks features that relates to old Create & New Create versions! It is also a continued version of the addon "Create: Dreams & Desires" for 1.20.1. This is a NeoForge 1.21.1 port of the original Create: Henry by ChocoBooyy.
 '''
 
 [[dependencies.${mod_id}]]
