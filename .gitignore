@@ -21,6 +21,15 @@ build
 eclipse
 run
 
+# build output logs
+gradle_out*.txt
+build_out*.txt
+build_output*.txt
+compile_out*.txt
+errors*.txt
+output*.txt
+net/
+
 # Files from Forge MDK
 forge*changelog.txt
 /run-server/
