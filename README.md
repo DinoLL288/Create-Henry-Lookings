@@ -4,7 +4,10 @@
   <img src="src/main/resources/pack.png" alt="Create: Henry logo" width="180" />
 </p>
 
-<p align="center">Create addon for 1.20.1 (Fabric &amp; Forge) that adds quality-of-life machines, new fan processing, pressing, and a few treats.</p>
+<p align="center">
+  Create addon for Minecraft 1.21.1 (NeoForge) that adds quality-of-life machines,
+  new fan processing, pressing, and a few treats.
+</p>
 
 <h2 align="center">Download</h2>
 
@@ -13,7 +16,7 @@
     <img src="https://img.shields.io/badge/CurseForge-Download-f16436?logo=curseforge&logoColor=white" alt="Download on CurseForge" />
   </a>
   <a href="https://modrinth.com/mod/create-henry">
-    <img src="https://img.shields.io/badge/Modrinth-Download-1bd96a?logo=modrinth&logoColor=white" alt="Download on Modrinth" />
+    <img src="https://img.shields.io/badge/Modrinth-Download-1bd96a?logo=modrinth" alt="Download on Modrinth" />
   </a>
 </p>
 
@@ -88,25 +91,34 @@
 <p align="center">
   Create: Henry keeps Create's look and feel while adding quality-of-life machines,<br/>
   new processing types, and a few extras that fit the base loop.<br/>
-  It is a continuation of the addon "Create: Dreams &amp; Desires" for 1.20.1, but is otherwise independent.
+  This project is a NeoForge port of the original Create: Henry mod for Minecraft 1.20.1.<br/>
+  The original mod was created by ChocoBooyy and is licensed under the MIT License.
 </p>
 
 <h2 align="center">Credits</h2>
 
 <p align="center">
-  Original author: ChocoBooyy (<a href="https://github.com/ChocoBooyy/Create-Henry">github.com/ChocoBooyy/Create-Henry</a>)<br/>
-  This is a NeoForge port of the original Create: Henry mod.
+  <strong>Original author:</strong> ChocoBooyy
+  (<a href="https://github.com/ChocoBooyy/Create-Henry">GitHub</a>)<br/>
+  <strong>NeoForge port:</strong> DinoLL288
+</p>
+
+<p align="center">
+  This project is a port and modification of the original Create: Henry mod.<br/>
+  All original work remains credited to its original author.
 </p>
 
 <h2 align="center">Disclaimer</h2>
 
 <p align="center">
   This addon has features inspired by Create: Dreams &amp; Desires by LopyLuna,<br/>
-  but has no affiliation or endorsement. Please don't bother LopyLuna about it.
+  but has no affiliation with or endorsement from LopyLuna.<br/>
+  Please don't bother LopyLuna about this project.
 </p>
 
 <h2 align="center">License</h2>
 
 <p align="center">
-  MIT
+  This project is licensed under the MIT License.<br/>
+  See the <code>LICENSE</code> file for the full license text.
 </p>
