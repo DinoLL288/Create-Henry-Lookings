@@ -10,6 +10,10 @@ import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.data.recipes.RecipeBuilder;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -105,6 +109,18 @@ public class HenryItems {
 					ResourceLocation.withDefaultNamespace("item/generated")).texture("layer0",
 					ResourceLocation.fromNamespaceAndPath(HenryCreate.MOD_ID,"item/" + c.getId().getPath())))
 			.tag(forgeItemTag("nuggets/lapis"), forgeItemTag("nuggets"))
+			.recipe((c, p) -> {
+				Item output = Items.LAPIS_LAZULI;
+				save(ShapedRecipeBuilder.shaped(RecipeCategory.MISC, output, 1)
+						.pattern("CC").pattern("CC")
+						.define('C', c.get())
+						.unlockedBy("has_" + getItemName(output), has(output)),
+						p, "crafting/" + getItemName(output) + "_from_" + c.getName());
+				save(ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, c.get(), 4)
+						.requires(output)
+						.unlockedBy("has_" + c.getName(), has(c.get())),
+						p, "crafting/" + c.getName() + "_from_" + getItemName(output));
+			})
 			.lang("Lapis Lazuli Shard")
 			.tab(HenryCreativeModeTabs.BASE_CREATIVE_TAB.getKey())
 			.register();

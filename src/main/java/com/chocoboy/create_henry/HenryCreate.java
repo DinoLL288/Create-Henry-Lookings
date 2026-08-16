@@ -62,7 +62,6 @@ public class HenryCreate
     public HenryCreate(IEventBus modEventBus, ModContainer modContainer) {
         REGISTRATE.registerEventListeners(modEventBus);
 
-        HenryConfigs.register(modContainer);
         HenryTags.init();
         HenryCreativeModeTabs.register(modEventBus);
         HenryDisplaySources.register();
@@ -74,6 +73,9 @@ public class HenryCreate
         HenryParticleTypes.register(modEventBus);
         HenryPackets.registerPackets();
         HenryDatagen.addExtraRegistrateData();
+
+        // Must run after HenryBlocks.register() so its stress values are registered before the config spec is built
+        HenryConfigs.register(modContainer);
 
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.register(FurnaceEngineBlock.class);
 
