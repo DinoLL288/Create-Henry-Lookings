@@ -1,0 +1,113 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "create:iron_sheet"
+  },
+  "loops": 2,
+  "results": [
+    {
+      "chance": 480.0,
+      "id": "create_henry:kinetic_mechanism"
+    },
+    {
+      "chance": 16.0,
+      "id": "create:andesite_alloy"
+    },
+    {
+      "chance": 8.0,
+      "id": "create:iron_sheet"
+    },
+    {
+      "chance": 5.0,
+      "id": "create:cogwheel"
+    },
+    {
+      "chance": 4.0,
+      "id": "create:super_glue"
+    },
+    {
+      "chance": 3.0,
+      "id": "create:zinc_nugget"
+    },
+    {
+      "chance": 2.0,
+      "id": "create:shaft"
+    },
+    {
+      "chance": 2.0,
+      "id": "create:crushed_raw_iron"
+    },
+    {
+      "id": "minecraft:iron_ingot"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "create_henry:incomplete_kinetic_mechanism"
+        },
+        {
+          "item": "create:andesite_alloy"
+        }
+      ],
+      "results": [
+        {
+          "id": "create_henry:incomplete_kinetic_mechanism"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "create_henry:incomplete_kinetic_mechanism"
+        },
+        {
+          "item": "create:cogwheel"
+        }
+      ],
+      "results": [
+        {
+          "id": "create_henry:incomplete_kinetic_mechanism"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "create_henry:incomplete_kinetic_mechanism"
+        },
+        {
+          "item": "minecraft:slime_ball"
+        }
+      ],
+      "results": [
+        {
+          "id": "create_henry:incomplete_kinetic_mechanism"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "create_henry:incomplete_kinetic_mechanism"
+        },
+        {
+          "item": "create:zinc_nugget"
+        }
+      ],
+      "results": [
+        {
+          "id": "create_henry:incomplete_kinetic_mechanism"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "create_henry:incomplete_kinetic_mechanism"
+  }
+}

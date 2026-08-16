@@ -1,15 +1,19 @@
 package com.chocoboy.create_henry.infrastructure.datagen;
 
+import com.chocoboy.create_henry.content.recipes.FreezingRecipe;
 import com.chocoboy.create_henry.registry.HenryRecipeTypes;
 import com.simibubi.create.AllItems;
+import com.simibubi.create.api.data.recipe.BaseRecipeProvider.GeneratedRecipe;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-public final class FreezingRecipeGen extends HenryProcessingRecipeGen {
+public final class FreezingRecipeGen extends HenryProcessingRecipeGen<FreezingRecipe> {
 
 	GeneratedRecipe
 
@@ -27,8 +31,8 @@ public final class FreezingRecipeGen extends HenryProcessingRecipeGen {
 				.output(secondaryChance, secondary.get(), 1));
 	}
 
-	public FreezingRecipeGen(PackOutput dataGenerator) {
-		super(dataGenerator);
+	public FreezingRecipeGen(PackOutput output, CompletableFuture<HolderLookup.Provider> lookups) {
+		super(output, lookups, FreezingRecipe::new);
 	}
 
 	@Override

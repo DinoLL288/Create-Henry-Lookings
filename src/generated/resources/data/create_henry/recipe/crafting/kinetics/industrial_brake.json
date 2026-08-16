@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "create_henry:industrial_casing"
+    },
+    {
+      "item": "create_henry:kinetic_mechanism"
+    },
+    {
+      "item": "create_henry:rubber"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "create_henry:industrial_brake"
+  }
+}

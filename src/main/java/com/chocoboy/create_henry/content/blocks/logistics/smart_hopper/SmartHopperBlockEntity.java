@@ -21,11 +21,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,24 +36,14 @@ public class SmartHopperBlockEntity extends SmartBlockEntity implements MenuProv
     FilteringBehaviour filtering;
     VersionedInventoryTrackerBehaviour invVersionTracker;
 
-    private final LazyOptional<IItemHandler> invOptional = LazyOptional.of(() -> inv);
-
     public SmartHopperBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         inv = new HopperInventory(5, this);
         setLazyTickRate(8);
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) return invOptional.cast();
-        return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        invOptional.invalidate();
+    public @NotNull IItemHandler getItemHandler(@Nullable Direction side) {
+        return inv;
     }
 
     @Override
@@ -123,13 +111,11 @@ public class SmartHopperBlockEntity extends SmartBlockEntity implements MenuProv
 
     private @Nullable IItemHandler grabCapability(Direction side) {
         if (level == null) return null;
-        var neighborBE = level.getBlockEntity(worldPosition.relative(side));
-        if (neighborBE == null) return null;
-        return neighborBE.getCapability(ForgeCapabilities.ITEM_HANDLER, side.getOpposite()).orElse(null);
+        return level.getCapability(Capabilities.ItemHandler.BLOCK, worldPosition.relative(side), side.getOpposite());
     }
 
     protected boolean cantAcceptItem(ItemStack stack, BlockState state) {
-        return ItemStack.isSameItemSameTags(ItemHandlerHelper.insertItem(inv, stack.copy(), true), stack)
+        return ItemStack.isSameItemSameComponents(ItemHandlerHelper.insertItem(inv, stack.copy(), true), stack)
                 || cantActivate(state)
                 || !filtering.test(stack);
     }
@@ -172,15 +158,15 @@ public class SmartHopperBlockEntity extends SmartBlockEntity implements MenuProv
     }
 
     @Override
-    protected void write(CompoundTag tag, boolean clientPacket) {
-        super.write(tag, clientPacket);
-        inv.save(tag);
+    protected void write(CompoundTag tag, net.minecraft.core.HolderLookup.Provider pRegistries, boolean clientPacket) {
+        super.write(tag, pRegistries, clientPacket);
+        inv.save(tag, pRegistries);
     }
 
     @Override
-    protected void read(CompoundTag tag, boolean clientPacket) {
-        super.read(tag, clientPacket);
-        inv.load(tag);
+    protected void read(CompoundTag tag, net.minecraft.core.HolderLookup.Provider pRegistries, boolean clientPacket) {
+        super.read(tag, pRegistries, clientPacket);
+        inv.load(tag, pRegistries);
     }
 
     @Override

@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraftforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
 import com.chocoboy.create_henry.HenryCreate;
 
 public class FurnaceEngineGenerator extends SpecialBlockStateGen {
@@ -36,7 +36,7 @@ public class FurnaceEngineGenerator extends SpecialBlockStateGen {
         AttachFace face = s.getValue(FurnaceEngineBlock.FACE);
         boolean isWall = face == AttachFace.WALL;
 
-        return p.models().getExistingFile(new ResourceLocation(HenryCreate.MOD_ID, isWall ? getWallModel() : getVerticalModel()));
+        return p.models().getExistingFile(HenryCreate.asResource(isWall ? getWallModel() : getVerticalModel()));
     }
 
     public String getVerticalModel() {

@@ -1,0 +1,17 @@
+{
+  "type": "create_henry:seething",
+  "ingredients": [
+    {
+      "item": "minecraft:ancient_debris"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:netherite_scrap"
+    },
+    {
+      "chance": 0.35,
+      "id": "minecraft:netherite_scrap"
+    }
+  ]
+}

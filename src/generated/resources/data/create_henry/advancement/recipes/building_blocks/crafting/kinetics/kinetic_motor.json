@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_kinetic_mechanism": {
+      "conditions": {
+        "items": [
+          {
+            "items": "create_henry:kinetic_mechanism"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "create_henry:crafting/kinetics/kinetic_motor"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_kinetic_mechanism"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "create_henry:crafting/kinetics/kinetic_motor"
+    ]
+  }
+}

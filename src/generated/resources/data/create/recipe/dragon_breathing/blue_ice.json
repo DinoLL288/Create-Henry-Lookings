@@ -1,0 +1,18 @@
+{
+  "type": "create_henry:dragon_breathing",
+  "ingredients": [
+    {
+      "item": "minecraft:blue_ice"
+    }
+  ],
+  "results": [
+    {
+      "chance": 0.1,
+      "id": "minecraft:ghast_tear"
+    },
+    {
+      "chance": 0.05,
+      "id": "minecraft:ghast_tear"
+    }
+  ]
+}

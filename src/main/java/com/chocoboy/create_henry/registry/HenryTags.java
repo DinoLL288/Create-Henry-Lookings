@@ -3,6 +3,8 @@ package com.chocoboy.create_henry.registry;
 import com.chocoboy.create_henry.HenryCreate;
 import com.simibubi.create.Create;
 import net.createmod.catnip.lang.Lang;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -19,39 +21,34 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
-
-import java.util.Collections;
 
 import static com.chocoboy.create_henry.registry.HenryTags.NameSpace.FORGE;
 
 @SuppressWarnings({"all"})
 public class HenryTags {
-	public static <T> TagKey<T> optionalTag(IForgeRegistry<T> registry,
+	public static <T> TagKey<T> optionalTag(Registry<T> registry,
 											ResourceLocation id) {
-		return registry.tags()
-				.createOptionalTagKey(id, Collections.emptySet());
+		return TagKey.create(registry.key(), id);
 	}
 
-	public static <T> TagKey<T> forgeTag(IForgeRegistry<T> registry, String path) {
-		return optionalTag(registry, new ResourceLocation("forge", path));
+	public static <T> TagKey<T> forgeTag(Registry<T> registry, String path) {
+		return optionalTag(registry, ResourceLocation.fromNamespaceAndPath("forge", path));
 	}
 
 	public static TagKey<Block> forgeBlockTag(String path) {
-		return forgeTag(ForgeRegistries.BLOCKS, path);
+		return forgeTag(BuiltInRegistries.BLOCK, path);
 	}
 
 	public static TagKey<Item> forgeItemTag(String path) {
-		return forgeTag(ForgeRegistries.ITEMS, path);
+		return forgeTag(BuiltInRegistries.ITEM, path);
 	}
 
 	public static TagKey<Fluid> forgeFluidTag(String path) {
-		return forgeTag(ForgeRegistries.FLUIDS, path);
+		return forgeTag(BuiltInRegistries.FLUID, path);
 	}
 
 	public static TagKey<Item> minecraftItemTag(String path) {
-		return ItemTags.create(new ResourceLocation("minecraft", path));
+		return ItemTags.create(ResourceLocation.fromNamespaceAndPath("minecraft", path));
 	}
 
 	public enum NameSpace {
@@ -110,9 +107,9 @@ public class HenryTags {
 		}
 
 		AllBlockTags(NameSpace namespace, String path, boolean optional, boolean alwaysDatagen) {
-			ResourceLocation id = new ResourceLocation(namespace.id, path == null ? Lang.asId(name()) : path);
+			ResourceLocation id = ResourceLocation.fromNamespaceAndPath(namespace.id, path == null ? Lang.asId(name()) : path);
 			if (optional) {
-				tag = optionalTag(ForgeRegistries.BLOCKS, id);
+				tag = optionalTag(BuiltInRegistries.BLOCK, id);
 			} else {
 				tag = BlockTags.create(id);
 			}
@@ -168,9 +165,9 @@ public class HenryTags {
 		}
 
 		AllItemTags(NameSpace namespace, String path, boolean optional, boolean alwaysDatagen) {
-			ResourceLocation id = new ResourceLocation(namespace.id, path == null ? Lang.asId(name()) : path);
+			ResourceLocation id = ResourceLocation.fromNamespaceAndPath(namespace.id, path == null ? Lang.asId(name()) : path);
 			if (optional) {
-				tag = optionalTag(ForgeRegistries.ITEMS, id);
+				tag = optionalTag(BuiltInRegistries.ITEM, id);
 			} else {
 				tag = ItemTags.create(id);
 			}
@@ -228,9 +225,9 @@ public class HenryTags {
 		}
 
 		AllFluidTags(NameSpace namespace, String path, boolean optional, boolean alwaysDatagen) {
-			ResourceLocation id = new ResourceLocation(namespace.id, path == null ? Lang.asId(name()) : path);
+			ResourceLocation id = ResourceLocation.fromNamespaceAndPath(namespace.id, path == null ? Lang.asId(name()) : path);
 			if (optional) {
-				tag = optionalTag(ForgeRegistries.FLUIDS, id);
+				tag = optionalTag(BuiltInRegistries.FLUID, id);
 			} else {
 				tag = FluidTags.create(id);
 			}
@@ -274,9 +271,9 @@ public class HenryTags {
 		}
 
 		HenryRecipeSerializerTags(NameSpace namespace, String path, boolean optional, boolean alwaysDatagen) {
-			ResourceLocation id = new ResourceLocation(namespace.id, path == null ? Lang.asId(name()) : path);
+			ResourceLocation id = ResourceLocation.fromNamespaceAndPath(namespace.id, path == null ? Lang.asId(name()) : path);
 			if (optional) {
-				tag = optionalTag(ForgeRegistries.RECIPE_SERIALIZERS, id);
+				tag = optionalTag(BuiltInRegistries.RECIPE_SERIALIZER, id);
 			} else {
 				tag = TagKey.create(Registries.RECIPE_SERIALIZER, id);
 			}
@@ -284,7 +281,10 @@ public class HenryTags {
 		}
 
 		public boolean matches(RecipeSerializer<?> recipeSerializer) {
-			return ForgeRegistries.RECIPE_SERIALIZERS.getHolder(recipeSerializer).orElseThrow().is(tag);
+			return BuiltInRegistries.RECIPE_SERIALIZER.getResourceKey(recipeSerializer)
+					.flatMap(BuiltInRegistries.RECIPE_SERIALIZER::getHolder)
+					.orElseThrow()
+					.is(tag);
 		}
 
 		private static void init() {}

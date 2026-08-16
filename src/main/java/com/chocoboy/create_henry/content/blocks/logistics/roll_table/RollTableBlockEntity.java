@@ -17,10 +17,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
+import net.neoforged.neoforge.items.IItemHandler;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.IdentityHashMap;
 import java.util.List;
@@ -30,7 +28,6 @@ public class RollTableBlockEntity extends SmartBlockEntity {
 
     TransportedItemStack heldItem;
     Map<Direction, RollTableItemHandler> itemHandlers;
-    private final Map<Direction, LazyOptional<IItemHandler>> lazyHandlers = new IdentityHashMap<>();
 
     public RollTableBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -38,21 +35,12 @@ public class RollTableBlockEntity extends SmartBlockEntity {
         for (Direction d : Iterate.horizontalDirections) {
             RollTableItemHandler handler = new RollTableItemHandler(this, d);
             itemHandlers.put(d, handler);
-            lazyHandlers.put(d, LazyOptional.of(() -> handler));
         }
     }
 
-    @Override
-    public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER && side != null && side.getAxis().isHorizontal())
-            return lazyHandlers.get(side).cast();
-        return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        lazyHandlers.values().forEach(LazyOptional::invalidate);
+    public @Nullable IItemHandler getItemHandler(@Nullable Direction side) {
+        if (side == null) return null;
+        return itemHandlers.get(side);
     }
 
     @Override
@@ -92,16 +80,16 @@ public class RollTableBlockEntity extends SmartBlockEntity {
     }
 
     @Override
-    protected void write(CompoundTag tag, boolean clientPacket) {
-        if (heldItem != null) tag.put("HeldItem", heldItem.serializeNBT());
-        super.write(tag, clientPacket);
+    protected void write(CompoundTag tag, net.minecraft.core.HolderLookup.Provider pRegistries, boolean clientPacket) {
+        if (heldItem != null) tag.put("HeldItem", heldItem.serializeNBT(pRegistries));
+        super.write(tag, pRegistries, clientPacket);
     }
 
     @Override
-    protected void read(CompoundTag tag, boolean clientPacket) {
+    protected void read(CompoundTag tag, net.minecraft.core.HolderLookup.Provider pRegistries, boolean clientPacket) {
         heldItem = null;
-        if (tag.contains("HeldItem")) heldItem = TransportedItemStack.read(tag.getCompound("HeldItem"));
-        super.read(tag, clientPacket);
+        if (tag.contains("HeldItem")) heldItem = TransportedItemStack.read(tag.getCompound("HeldItem"), pRegistries);
+        super.read(tag, pRegistries, clientPacket);
     }
 
     private float itemMovementPerTick() {

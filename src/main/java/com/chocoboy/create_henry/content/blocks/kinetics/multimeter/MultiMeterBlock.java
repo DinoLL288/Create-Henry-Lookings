@@ -137,7 +137,6 @@ public class MultiMeterBlock extends DirectionalAxisKineticBlock implements IBE<
         return GAUGE.get(state.getValue(FACING), state.getValue(AXIS_ALONG_FIRST_COORDINATE));
     }
 
-    @Override
     public boolean isPathfindable(BlockState state, BlockGetter reader, BlockPos pos, PathComputationType type) {
         return false;
     }

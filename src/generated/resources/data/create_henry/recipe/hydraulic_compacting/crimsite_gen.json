@@ -1,0 +1,28 @@
+{
+  "type": "create_henry:hydraulic_compacting",
+  "heat_requirement": "superheated",
+  "ingredients": [
+    {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    {
+      "type": "neoforge:tag",
+      "amount": 500,
+      "tag": "minecraft:lava"
+    },
+    {
+      "type": "neoforge:single",
+      "amount": 100,
+      "fluid": "create_henry:strawberry_milkshake"
+    }
+  ],
+  "results": [
+    {
+      "count": 2,
+      "id": "create:crimsite"
+    }
+  ]
+}

@@ -14,7 +14,6 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -40,11 +39,12 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.common.util.TriState;
 import org.jetbrains.annotations.NotNull;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.world.ItemInteractionResult;
 import com.chocoboy.create_henry.registry.HenryBlockEntityTypes;
 import com.chocoboy.create_henry.registry.HenryBlocks;
 
@@ -54,7 +54,6 @@ import java.util.stream.Stream;
 
 @SuppressWarnings({"all"})
 @ParametersAreNonnullByDefault
-@Mod.EventBusSubscriber
 public class FurnaceEngineBlock extends FaceAttachedHorizontalDirectionalBlock implements SimpleWaterloggedBlock, IWrenchable, IBE<FurnaceEngineBlockEntity> {
 
     private static final int placementHelperId = PlacementHelpers.register(
@@ -105,15 +104,18 @@ public class FurnaceEngineBlock extends FaceAttachedHorizontalDirectionalBlock i
     }
 
     @Override
-    public @NotNull InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand,
-                                          BlockHitResult ray) {
-        ItemStack heldItem = player.getItemInHand(hand);
+    protected MapCodec<? extends FurnaceEngineBlock> codec() {
+        return Block.simpleCodec(FurnaceEngineBlock::new);
+    }
 
+    @Override
+    public @NotNull ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos,
+                                                    Player player, InteractionHand hand, BlockHitResult ray) {
         IPlacementHelper placementHelper = PlacementHelpers.get(placementHelperId);
-        if (placementHelper.matchesItem(heldItem))
+        if (placementHelper.matchesItem(stack))
             return placementHelper.getOffset(player, world, state, pos, ray)
-                    .placeInWorld(world, (BlockItem) heldItem.getItem(), player, hand, ray);
-        return InteractionResult.PASS;
+                    .placeInWorld(world, (BlockItem) stack.getItem(), player, hand, ray);
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext context) {
@@ -138,11 +140,11 @@ public class FurnaceEngineBlock extends FaceAttachedHorizontalDirectionalBlock i
             return;
         BlockState state = event.getLevel().getBlockState(event.getPos());
         if (state.getBlock() instanceof AbstractFurnaceBlock)
-            event.setUseBlock(Event.Result.DENY);
+            event.setUseBlock(TriState.FALSE);
     }
 
     @Override
-    public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
+    protected boolean isPathfindable(BlockState pState, PathComputationType pType) {
         return false;
     }
 

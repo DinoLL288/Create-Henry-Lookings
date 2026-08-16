@@ -1,0 +1,13 @@
+{
+  "type": "create_henry:dragon_breathing",
+  "ingredients": [
+    {
+      "item": "minecraft:blaze_rod"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:end_rod"
+    }
+  ]
+}

@@ -23,9 +23,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.DistExecutor;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import com.simibubi.create.foundation.utility.DistExecutor;
+import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import com.chocoboy.create_henry.registry.HenryBlocks;
 
 import javax.annotation.Nullable;
@@ -64,7 +65,7 @@ public class FurnaceEngineBlockEntity extends SmartBlockEntity {
         AbstractFurnaceBlockEntity furnace = this.getFurnace();
 
         if (furnace != null && flywheel != null) {
-            float efficiency = furnace.cookingProgress > 0 && furnace.cookingTotalTime > 0 ? 1.0f : 0.0f;
+            float efficiency = furnace.getBlockState().getValue(AbstractFurnaceBlock.LIT) ? 1.0f : 0.0f;
             if (efficiency > 0.0F && delayedTimer < 5) {
                 delayedTimer++;
             } else if (delayedTimer > 0) {
@@ -109,9 +110,7 @@ public class FurnaceEngineBlockEntity extends SmartBlockEntity {
 
                 flywheel.update(this.worldPosition, conveyedSpeedLevel, delayedEfficiency);
                 if (this.level.isClientSide) {
-                    DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> {
-                        return this::spawnParticles;
-                    });
+                     DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> { this.spawnParticles(); return null; });
                 }
             }
         } else if (!this.level.isClientSide()) {

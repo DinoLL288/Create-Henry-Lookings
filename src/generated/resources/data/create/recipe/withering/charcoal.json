@@ -1,0 +1,13 @@
+{
+  "type": "create_henry:withering",
+  "ingredients": [
+    {
+      "item": "minecraft:charcoal"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:coal"
+    }
+  ]
+}

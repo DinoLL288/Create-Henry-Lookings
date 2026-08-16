@@ -33,6 +33,12 @@ public class HenryRegistrateTags {
         prov.tag(forgeItemTag("dusts"))
                 .add(AllItems.POWDERED_OBSIDIAN.get())
         ;
+        prov.tag(forgeItemTag("stripped_logs"))
+                .add(Items.STRIPPED_OAK_LOG, Items.STRIPPED_BIRCH_LOG, Items.STRIPPED_SPRUCE_LOG, Items.STRIPPED_JUNGLE_LOG, Items.STRIPPED_ACACIA_LOG, Items.STRIPPED_DARK_OAK_LOG, Items.STRIPPED_MANGROVE_LOG, Items.STRIPPED_CHERRY_LOG, Items.STRIPPED_CRIMSON_STEM, Items.STRIPPED_WARPED_STEM)
+        ;
+        prov.tag(forgeItemTag("stripped_wood"))
+                .add(Items.STRIPPED_OAK_WOOD, Items.STRIPPED_BIRCH_WOOD, Items.STRIPPED_SPRUCE_WOOD, Items.STRIPPED_JUNGLE_WOOD, Items.STRIPPED_ACACIA_WOOD, Items.STRIPPED_DARK_OAK_WOOD, Items.STRIPPED_MANGROVE_WOOD, Items.STRIPPED_CHERRY_WOOD, Items.STRIPPED_CRIMSON_HYPHAE, Items.STRIPPED_WARPED_HYPHAE)
+        ;
         prov.tag(HenryTags.AllItemTags.SEETHABLE.tag)
                 .add(Items.ENDER_PEARL)
                 .add(Items.NETHERRACK)

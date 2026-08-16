@@ -4,13 +4,13 @@ import com.simibubi.create.foundation.particle.ICustomParticleData;
 import com.chocoboy.create_henry.util.Lang;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import com.chocoboy.create_henry.HenryCreate;
 import com.chocoboy.create_henry.content.blocks.kinetics.furnace_engine.SmokeJetParticleData;
 
@@ -47,11 +47,11 @@ public enum HenryParticleTypes {
     }
 
     private static class ParticleEntry<D extends ParticleOptions> {
-        private static final DeferredRegister<ParticleType<?>> REGISTER = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, HenryCreate.MOD_ID);
+        private static final DeferredRegister<ParticleType<?>> REGISTER = DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPE, HenryCreate.MOD_ID);
 
         private final String name;
         private final Supplier<? extends ICustomParticleData<D>> typeFactory;
-        private final RegistryObject<ParticleType<D>> object;
+        private final DeferredHolder<ParticleType<?>, ParticleType<D>> object;
 
         public ParticleEntry(String name, Supplier<? extends ICustomParticleData<D>> typeFactory) {
             this.name = name;

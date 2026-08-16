@@ -1,16 +1,17 @@
 package com.chocoboy.create_henry.content.recipes;
 
-import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
-import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder.ProcessingRecipeParams;
+import com.simibubi.create.content.processing.recipe.ProcessingRecipeParams;
+import com.simibubi.create.content.processing.recipe.StandardProcessingRecipe;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public abstract class HenryFanProcessingRecipe extends ProcessingRecipe<HenryFanProcessingRecipe.Wrapper> {
+public abstract class HenryFanProcessingRecipe extends StandardProcessingRecipe<HenryFanProcessingRecipe.Wrapper> {
 
     protected HenryFanProcessingRecipe(IRecipeTypeInfo recipeType, ProcessingRecipeParams params) {
         super(recipeType, params);
@@ -34,8 +35,19 @@ public abstract class HenryFanProcessingRecipe extends ProcessingRecipe<HenryFan
     }
 
     public static class Wrapper extends RecipeWrapper {
+        private final ItemStackHandler handler;
+
         public Wrapper() {
             super(new ItemStackHandler(1));
+            this.handler = (ItemStackHandler) inv;
+        }
+
+        public boolean isEmpty() {
+            return handler.getStackInSlot(0).isEmpty();
+        }
+
+        public void setItem(int slot, ItemStack stack) {
+            handler.setStackInSlot(slot, stack);
         }
     }
 }

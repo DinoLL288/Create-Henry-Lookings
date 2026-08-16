@@ -8,6 +8,8 @@ import com.simibubi.create.content.processing.recipe.ProcessingOutput;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.chocoboy.create_henry.HenryCreate;
+import com.chocoboy.create_henry.util.Lang;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -36,9 +38,10 @@ public abstract class HenryFanProcessingCategory<T extends Recipe<?>> extends Cr
     }
 
     public static Supplier<ItemStack> getFan(String name) {
-        return () -> HenryBlocks.INDUSTRIAL_FAN.asStack()
-                .setHoverName(Component.translatable(HenryCreate.MOD_ID + ".recipe." + name + ".fan")
-                        .withStyle(style -> style.withItalic(false)));
+        ItemStack stack = HenryBlocks.INDUSTRIAL_FAN.asStack();
+        stack.set(DataComponents.CUSTOM_NAME,
+                Lang.translateDirect("recipe." + name + ".fan").withStyle(style -> style.withItalic(false)));
+        return () -> stack;
     }
 
     @Override
@@ -100,7 +103,7 @@ public abstract class HenryFanProcessingCategory<T extends Recipe<?>> extends Cr
 
     protected abstract void renderAttachedBlock(GuiGraphics graphics);
 
-    public static abstract class MultiOutput<T extends ProcessingRecipe<?>> extends HenryFanProcessingCategory<T> {
+    public static abstract class MultiOutput<T extends ProcessingRecipe<?, ?>> extends HenryFanProcessingCategory<T> {
 
         public MultiOutput(Info<T> info) {
             super(info);
@@ -143,7 +146,7 @@ public abstract class HenryFanProcessingCategory<T extends Recipe<?>> extends Cr
 
     }
 
-    public static class SimpleBlock<T extends ProcessingRecipe<?>> extends MultiOutput<T> {
+    public static class SimpleBlock<T extends ProcessingRecipe<?, ?>> extends MultiOutput<T> {
 
         private final BlockState blockState;
 

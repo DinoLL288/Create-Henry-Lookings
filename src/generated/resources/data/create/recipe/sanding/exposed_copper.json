@@ -1,0 +1,13 @@
+{
+  "type": "create_henry:sanding",
+  "ingredients": [
+    {
+      "item": "minecraft:exposed_copper"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:copper_block"
+    }
+  ]
+}

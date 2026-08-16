@@ -64,10 +64,13 @@ public class FurnaceEngineRenderer extends SafeBlockEntityRenderer<FurnaceEngine
     }
 
     private SuperByteBuffer transformed(PartialModel model, BlockState blockState, Direction facing, boolean roll90) {
+        // Debugging log
+        com.chocoboy.create_henry.HenryCreate.LOGGER.debug("Rendering model {} with facing {}. Angle: {}", model, facing, net.createmod.catnip.math.AngleHelper.horizontalAngle(facing));
+        
         return CachedBuffers.partial(model, blockState)
                 .center()
-                .rotateYDegrees(AngleHelper.horizontalAngle(facing))
-                .rotateXDegrees(AngleHelper.verticalAngle(facing) + 90.0F)
+                .rotateYDegrees(net.createmod.catnip.math.AngleHelper.horizontalAngle(facing))
+                .rotateXDegrees(net.createmod.catnip.math.AngleHelper.verticalAngle(facing) + 90.0F)
                 .rotateYDegrees((float) (roll90 ? -90.0 : 0.0))
                 .uncenter();
     }

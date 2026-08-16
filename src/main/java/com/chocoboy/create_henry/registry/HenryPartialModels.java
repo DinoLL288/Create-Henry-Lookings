@@ -15,10 +15,8 @@ public class HenryPartialModels {
 		ENGINE_PISTON = block("furnace_engine/piston"),
 		ENGINE_LINKAGE = block("furnace_engine/linkage"),
 		ENGINE_CONNECTOR = block("furnace_engine/shaft_connector"),
-		GAUGE_DIAL = block("gauge/dial"),
 		GAUGE_SPEED_DIAL = block("gauge/speed_dial"),
 		GAUGE_STRESS_DIAL = block("gauge/stress_dial"),
-		GAUGE_INDICATOR = block("gauge/indicator"),
 		GAUGE_HEAD = block("gauge/multimeter/head"),
 		GOLDEN_MIXER_POLE = block("golden_mixer/pole"),
 		GOLDEN_MIXER_HEAD = block("golden_mixer/head");

@@ -171,7 +171,7 @@ public class FanScenes {
         scene.effects().emitParticles(washDepotTop, scene.effects().simpleParticleEmitter(ParticleTypes.SPIT, Vec3.ZERO), .5f, 30);
         scene.idle(30);
         scene.world().modifyBlockEntityNBT(util.select().position(depos), DepotBlockEntity.class,
-                nbt -> nbt.put("HeldItem", new TransportedItemStack(new ItemStack(Items.CLAY_BALL)).serializeNBT()));
+                nbt -> nbt.put("HeldItem", new TransportedItemStack(new ItemStack(Items.CLAY_BALL)).serializeNBT(scene.world().getHolderLookupProvider())));
         scene.effects().emitParticles(washDepotTop, scene.effects().simpleParticleEmitter(ParticleTypes.SPIT, Vec3.ZERO), .5f, 30);
 
         // endregion
@@ -201,7 +201,7 @@ public class FanScenes {
         scene.idle(80);
 
         showCatalystDemo(scene, itemPos, particlePos,
-                new ItemStack(AllItems.ROSE_QUARTZ), new ItemStack(AllItems.POLISHED_ROSE_QUARTZ),
+                AllItems.ROSE_QUARTZ.asStack(), AllItems.POLISHED_ROSE_QUARTZ.asStack(),
                 ParticleTypes.CRIT, ParticleTypes.WHITE_ASH,
                 "Items caught in the area will be sanded");
 
@@ -345,7 +345,7 @@ public class FanScenes {
         scene.effects().emitParticles(depotTop, scene.effects().simpleParticleEmitter(ParticleTypes.SPIT, Vec3.ZERO), 0.5f, 30);
         scene.idle(30);
         scene.world().modifyBlockEntityNBT(util.select().position(util.grid().at(2, 1, 1)), DepotBlockEntity.class,
-                nbt -> nbt.put("HeldItem", new TransportedItemStack(goldNugget).serializeNBT()));
+                nbt -> nbt.put("HeldItem", new TransportedItemStack(goldNugget).serializeNBT(scene.world().getHolderLookupProvider())));
         scene.effects().emitParticles(depotTop, scene.effects().simpleParticleEmitter(ParticleTypes.SPIT, Vec3.ZERO), 0.5f, 30);
         scene.idle(40);
 

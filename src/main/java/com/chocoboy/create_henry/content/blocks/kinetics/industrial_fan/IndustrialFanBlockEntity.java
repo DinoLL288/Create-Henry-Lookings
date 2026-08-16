@@ -56,8 +56,8 @@ public class IndustrialFanBlockEntity extends GeneratingKineticBlockEntity imple
     }
 
     @Override
-    protected void read(CompoundTag compound, boolean clientPacket) {
-        super.read(compound, clientPacket);
+    protected void read(CompoundTag compound, net.minecraft.core.HolderLookup.Provider pRegistries, boolean clientPacket) {
+        super.read(compound, pRegistries, clientPacket);
         if (!wasMoved)
             isGenerator = compound.getBoolean("Generating");
         if (clientPacket)
@@ -65,9 +65,9 @@ public class IndustrialFanBlockEntity extends GeneratingKineticBlockEntity imple
     }
 
     @Override
-    public void write(CompoundTag compound, boolean clientPacket) {
+    public void write(CompoundTag compound, net.minecraft.core.HolderLookup.Provider pRegistries, boolean clientPacket) {
         compound.putBoolean("Generating", isGenerator);
-        super.write(compound, clientPacket);
+        super.write(compound, pRegistries, clientPacket);
     }
 
     @Override

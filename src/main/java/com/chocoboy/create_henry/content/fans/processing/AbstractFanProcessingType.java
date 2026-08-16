@@ -55,10 +55,10 @@ public abstract class AbstractFanProcessingType implements FanProcessingType {
     // Create runs only the highest-priority type valid at a catalyst, so when this type wins a
     // shared catalyst it also serves same-named recipes from other addons (e.g. garnished:freezing).
     @SuppressWarnings({"unchecked", "rawtypes"})
-    private Optional<? extends ProcessingRecipe<?>> findPeerRecipe(Level level) {
+    private Optional<? extends ProcessingRecipe<?, ?>> findPeerRecipe(Level level) {
         for (RecipeType<?> type : peerRecipeTypes()) {
             Optional<?> found = level.getRecipeManager().getRecipeFor((RecipeType) type, wrapper, level);
-            if (found.isPresent() && found.get() instanceof ProcessingRecipe<?> recipe)
+            if (found.isPresent() && found.get() instanceof ProcessingRecipe<?, ?> recipe)
                 return Optional.of(recipe);
         }
         return Optional.empty();
@@ -109,7 +109,7 @@ public abstract class AbstractFanProcessingType implements FanProcessingType {
         if (to == null) return;
         CompoundTag tag = from.saveWithoutId(new CompoundTag());
         tag.remove("UUID");
-        to.deserializeNBT(tag);
+        to.deserializeNBT(level.registryAccess(), tag);
         to.setPos(from.getPosition(0));
         level.addFreshEntity(to);
         from.discard();

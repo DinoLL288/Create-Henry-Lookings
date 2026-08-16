@@ -1,0 +1,13 @@
+{
+  "type": "create_henry:withering",
+  "ingredients": [
+    {
+      "item": "minecraft:slime_ball"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:clay_ball"
+    }
+  ]
+}

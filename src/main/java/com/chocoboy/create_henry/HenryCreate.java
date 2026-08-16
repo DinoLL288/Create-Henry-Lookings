@@ -13,23 +13,21 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.RegisterEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import com.chocoboy.create_henry.content.blocks.kinetics.furnace_engine.FurnaceEngineBlock;
 import com.chocoboy.create_henry.content.fans.processing.SandingType;
 import com.chocoboy.create_henry.infrastructure.config.HenryConfigs;
 import com.chocoboy.create_henry.infrastructure.datagen.HenryDatagen;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.registries.RegisterEvent;
 
 import java.util.Random;
 
@@ -61,16 +59,8 @@ public class HenryCreate
                             .andThen(TooltipModifier.mapNull(HenryCreate.create(item)))
             );
 
-    public HenryCreate()
-    {
-        ModLoadingContext modLoadingContext = ModLoadingContext.get();
-
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
-
+    public HenryCreate(IEventBus modEventBus, ModContainer modContainer) {
         REGISTRATE.registerEventListeners(modEventBus);
-
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> HenryPartialModels::init);
 
         HenryTags.init();
         HenryCreativeModeTabs.register(modEventBus);
@@ -82,19 +72,21 @@ public class HenryCreate
         HenryRecipeTypes.register(modEventBus);
         HenryParticleTypes.register(modEventBus);
         HenryPackets.registerPackets();
+        HenryDatagen.addExtraRegistrateData();
 
-        HenryConfigs.register(modLoadingContext);
+        // Must run after HenryBlocks.register() so its stress values are registered before the config spec is built
+        HenryConfigs.register(modContainer);
+
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.register(FurnaceEngineBlock.class);
+
+        if (net.neoforged.fml.loading.FMLEnvironment.dist == net.neoforged.api.distmarker.Dist.CLIENT) {
+            HenryClient.onCtorClient(modEventBus);
+        }
 
         modEventBus.addListener(HenryCreate::init);
         modEventBus.addListener(HenryCreate::onRegister);
+        modEventBus.addListener(com.chocoboy.create_henry.infrastructure.capabilities.HenryCapabilities::register);
         modEventBus.addListener(EventPriority.LOWEST, HenryDatagen::gatherData);
-
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> HenryClient.onCtorClient(modEventBus, forgeEventBus));
-
-        // Register ourselves for server and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(this);
-        forgeEventBus.addListener(HenryCreate::onAddReloadListeners);
-
     }
 
     public static void init(final FMLCommonSetupEvent event) {
@@ -122,7 +114,7 @@ public class HenryCreate
     }
 
     public static ResourceLocation asResource(String path) {
-        return new ResourceLocation(MOD_ID, path);
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
     }
 
     public static CreateRegistrate registrate() {

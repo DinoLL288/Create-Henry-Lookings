@@ -1,6 +1,7 @@
 package com.chocoboy.create_henry.content.blocks.logistics.roll_table;
 
 import com.simibubi.create.AllShapes;
+import com.mojang.serialization.MapCodec;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.kinetics.belt.behaviour.DirectBeltInputBehaviour;
 import com.simibubi.create.foundation.advancement.AdvancementBehaviour;
@@ -12,6 +13,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -32,15 +34,21 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 public class RollTableBlock extends Block implements IWrenchable, IBE<RollTableBlockEntity> {
+    public static final MapCodec<RollTableBlock> CODEC = simpleCodec(RollTableBlock::new);
+
     public RollTableBlock(Properties properties) {
         super(properties);
     }
 
     @Override
+    protected MapCodec<? extends Block> codec() {
+        return CODEC;
+    }
+
+    @Override
     @ParametersAreNonnullByDefault
-    public @NotNull InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hitResult) {
-        ItemStack stack = player.getItemInHand(hand);
-        return onBlockEntityUse(level, pos, be -> {
+    protected @NotNull ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hitResult) {
+        InteractionResult result = onBlockEntityUse(level, pos, be -> {
             if (!stack.isEmpty()) {
                 DirectBeltInputBehaviour inputBehaviour = BlockEntityBehaviour.get(level, pos, DirectBeltInputBehaviour.TYPE);
                 if (inputBehaviour == null) return InteractionResult.PASS;
@@ -56,6 +64,11 @@ public class RollTableBlock extends Block implements IWrenchable, IBE<RollTableB
             }
             return InteractionResult.SUCCESS;
         });
+        return switch (result) {
+            case SUCCESS, CONSUME, CONSUME_PARTIAL -> ItemInteractionResult.SUCCESS;
+            case FAIL -> ItemInteractionResult.FAIL;
+            default -> ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        };
     }
 
 
@@ -109,7 +122,6 @@ public class RollTableBlock extends Block implements IWrenchable, IBE<RollTableB
         return HenryBlockEntityTypes.ROLL_TABLE.get();
     }
 
-    @Override
     public boolean isPathfindable(BlockState state, BlockGetter reader, BlockPos pos, PathComputationType type) {
         return false;
     }

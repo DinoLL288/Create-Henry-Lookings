@@ -1,0 +1,13 @@
+{
+  "type": "create_henry:withering",
+  "ingredients": [
+    {
+      "item": "minecraft:potato"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:poisonous_potato"
+    }
+  ]
+}

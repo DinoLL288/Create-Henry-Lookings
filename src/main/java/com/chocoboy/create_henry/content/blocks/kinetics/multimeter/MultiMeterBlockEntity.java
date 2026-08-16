@@ -17,8 +17,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import com.chocoboy.create_henry.infrastructure.network.HenryPackets;
 import com.chocoboy.create_henry.infrastructure.network.GaugeObservedPacket;
+import net.createmod.catnip.platform.CatnipServices;
 
 import java.util.List;
 
@@ -109,19 +109,19 @@ public class MultiMeterBlockEntity extends KineticBlockEntity implements IHaveGo
     }
 
     @Override
-    public void write(CompoundTag compound, boolean clientPacket) {
+    public void write(CompoundTag compound, net.minecraft.core.HolderLookup.Provider pRegistries, boolean clientPacket) {
         compound.putFloat("SpeedValue", dialTargetSpeed);
         compound.putFloat("StressValue", dialTargetStress);
         compound.putInt("Color", color);
-        super.write(compound, clientPacket);
+        super.write(compound, pRegistries, clientPacket);
     }
 
     @Override
-    protected void read(CompoundTag compound, boolean clientPacket) {
+    protected void read(CompoundTag compound, net.minecraft.core.HolderLookup.Provider pRegistries, boolean clientPacket) {
         dialTargetSpeed = compound.getFloat("SpeedValue");
         dialTargetStress = compound.getFloat("StressValue");
         color = compound.getInt("Color");
-        super.read(compound, clientPacket);
+        super.read(compound, pRegistries, clientPacket);
 
         if (clientPacket && worldPosition != null && worldPosition.equals(lastSent))
             lastSent = null;
@@ -190,7 +190,7 @@ public class MultiMeterBlockEntity extends KineticBlockEntity implements IHaveGo
         }
 
         if (!worldPosition.equals(lastSent))
-            HenryPackets.getChannel().sendToServer(new GaugeObservedPacket(lastSent = worldPosition));
+            CatnipServices.NETWORK.sendToServer(new GaugeObservedPacket(lastSent = worldPosition));
 
         return true;
     }

@@ -25,6 +25,7 @@ import net.createmod.ponder.api.scene.SceneBuilder;
 import net.createmod.ponder.api.scene.SceneBuildingUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.Vec3;
@@ -79,8 +80,8 @@ public class ProcessingScenes {
         scene.idle(80);
         scene.world().modifyBlockEntityNBT(util.select().position(basin), BasinBlockEntity.class, nbt -> {
             nbt.put("VisualizedItems",
-                    NBTHelper.writeCompoundList(ImmutableList.of(IntAttached.with(1, purple)), ia -> ia.getValue()
-                            .serializeNBT()));
+                    NBTHelper.writeCompoundList(ImmutableList.of(IntAttached.with(1, purple)), ia -> (CompoundTag) ia.getValue()
+                            .saveOptional(scene.world().getHolderLookupProvider())));
         });
         scene.idle(4);
         scene.world().createItemOnBelt(util.grid().at(1, 1, 1), Direction.UP, purple);

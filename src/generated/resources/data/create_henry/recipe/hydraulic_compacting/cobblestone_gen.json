@@ -1,0 +1,21 @@
+{
+  "type": "create_henry:hydraulic_compacting",
+  "ingredients": [
+    {
+      "type": "neoforge:tag",
+      "amount": 100,
+      "tag": "minecraft:lava"
+    },
+    {
+      "type": "neoforge:tag",
+      "amount": 500,
+      "tag": "minecraft:water"
+    }
+  ],
+  "results": [
+    {
+      "count": 10,
+      "id": "minecraft:cobblestone"
+    }
+  ]
+}

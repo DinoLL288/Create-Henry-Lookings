@@ -1,0 +1,13 @@
+{
+  "type": "create_henry:withering",
+  "ingredients": [
+    {
+      "item": "minecraft:stone"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:deepslate"
+    }
+  ]
+}

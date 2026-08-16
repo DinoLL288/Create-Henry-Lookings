@@ -1,3 +1,3 @@
-// 1.20.1	2025-04-21T17:10:01.9422484	Recipes
-e7449b0cf802a5077e8b7abac46a2bb3decc4ffc data/create_henry/recipes/mechanical_crafting/hydraulic_press.json
-458e40f26e1ce6a375368aa179203edd775124d8 data/create_henry/recipes/sequenced_assembly/kinetic_mechanism.json
+// 1.21.1	2026-08-15T13:16:03.5510778	Recipes
+4130e3fd961822958cfbb86971b73c2be5a3b5c1 data/create_henry/recipe/mechanical_crafting/hydraulic_press.json
+8c20be19cb013aeb31b9c2d0b0d194b4d20db977 data/create_henry/recipe/sequenced_assembly/kinetic_mechanism.json

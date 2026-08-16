@@ -1,13 +1,16 @@
 package com.chocoboy.create_henry.infrastructure.datagen;
 
 import com.chocoboy.create_henry.HenryCreate;
+import com.chocoboy.create_henry.content.recipes.SeethingRecipe;
 import com.chocoboy.create_henry.registry.HenryItems;
 import com.chocoboy.create_henry.registry.HenryRecipeTypes;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.content.decoration.palettes.AllPaletteStoneTypes;
+import com.simibubi.create.api.data.recipe.BaseRecipeProvider.GeneratedRecipe;
 import com.simibubi.create.foundation.data.recipe.CommonMetal;
 import com.simibubi.create.foundation.data.recipe.Mods;
 import com.tterrag.registrate.util.entry.ItemEntry;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -16,10 +19,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-public final class SeethingRecipeGen extends HenryProcessingRecipeGen {
+public final class SeethingRecipeGen extends HenryProcessingRecipeGen<SeethingRecipe> {
 
 	GeneratedRecipe
 
@@ -69,8 +73,8 @@ public final class SeethingRecipeGen extends HenryProcessingRecipeGen {
 			CRUSHED_URANIUM = moddedCrushedOre(AllItems.CRUSHED_URANIUM, CommonMetal.URANIUM),
 			CRUSHED_NICKEL = moddedCrushedOre(AllItems.CRUSHED_NICKEL, CommonMetal.NICKEL);
 
-	public SeethingRecipeGen(PackOutput output) {
-		super(output);
+	public SeethingRecipeGen(PackOutput output, CompletableFuture<HolderLookup.Provider> lookups) {
+		super(output, lookups, SeethingRecipe::new);
 	}
 
 	@Override

@@ -1,0 +1,13 @@
+{
+  "type": "create_henry:sanding",
+  "ingredients": [
+    {
+      "item": "minecraft:polished_deepslate_slab"
+    }
+  ],
+  "results": [
+    {
+      "id": "minecraft:cobbled_deepslate_slab"
+    }
+  ]
+}

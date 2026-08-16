@@ -8,7 +8,7 @@ import com.chocoboy.create_henry.registry.HenryTags;
 import com.simibubi.create.content.kinetics.fan.processing.FanProcessingType;
 import com.simibubi.create.content.processing.recipe.ProcessingOutput;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
-import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
+import com.simibubi.create.content.processing.recipe.StandardProcessingRecipe;
 import com.simibubi.create.foundation.recipe.RecipeApplier;
 import net.createmod.catnip.theme.Color;
 import net.minecraft.core.BlockPos;
@@ -26,8 +26,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
@@ -63,23 +63,21 @@ public final class SandingType extends AbstractFanProcessingType {
     // region Polish compat
 
     public static boolean isPolishProcessingRecipe(Recipe<?> recipe) {
-        if (!(recipe instanceof ProcessingRecipe<?>)) return false;
-        ResourceLocation serializerId = ForgeRegistries.RECIPE_SERIALIZERS.getKey(recipe.getSerializer());
+        if (!(recipe instanceof ProcessingRecipe<?, ?>)) return false;
+        ResourceLocation serializerId = BuiltInRegistries.RECIPE_SERIALIZER.getKey(recipe.getSerializer());
         if (serializerId == null) return false;
         return serializerId.getPath().equals("sandpaper_polishing");
     }
 
     @Nullable
-    public static SandingRecipe toSandingRecipe(ProcessingRecipe<?> processing) {
+    public static SandingRecipe toSandingRecipe(ResourceLocation id, ProcessingRecipe<?, ?> processing) {
         List<Ingredient> ingredients = processing.getIngredients();
         if (ingredients.size() != 1) return null;
         List<ProcessingOutput> outputs = processing.getRollableResults();
         if (outputs.isEmpty()) return null;
 
-        ResourceLocation id = HenryCreate.asResource(
-                "compat/" + processing.getId().getNamespace() + "/" + processing.getId().getPath());
-        ProcessingRecipeBuilder<SandingRecipe> builder =
-                new ProcessingRecipeBuilder<>(SandingRecipe::new, id);
+        StandardProcessingRecipe.Builder<SandingRecipe> builder =
+                new StandardProcessingRecipe.Builder<>(SandingRecipe::new, id);
         builder.require(ingredients.get(0));
         for (ProcessingOutput output : outputs)
             builder.output(output.getChance(), output.getStack());
@@ -88,9 +86,11 @@ public final class SandingType extends AbstractFanProcessingType {
 
     public static void buildPolishCache(RecipeManager manager) {
         List<SandingRecipe> list = new ArrayList<>();
-        for (Recipe<?> recipe : manager.getRecipes()) {
-            if (!isPolishProcessingRecipe(recipe)) continue;
-            SandingRecipe converted = toSandingRecipe((ProcessingRecipe<?>) recipe);
+        for (net.minecraft.world.item.crafting.RecipeHolder<?> holder : manager.getRecipes()) {
+            if (!isPolishProcessingRecipe(holder.value())) continue;
+            ResourceLocation id = HenryCreate.asResource(
+                    "compat/" + holder.id().getNamespace() + "/" + holder.id().getPath());
+            SandingRecipe converted = toSandingRecipe(id, (ProcessingRecipe<?, ?>) holder.value());
             if (converted != null) list.add(converted);
         }
         polishRecipes = list;

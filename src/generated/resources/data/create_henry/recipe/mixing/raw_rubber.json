@@ -1,0 +1,15 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "type": "neoforge:single",
+      "amount": 500,
+      "fluid": "create_henry:sap"
+    }
+  ],
+  "results": [
+    {
+      "id": "create_henry:raw_rubber"
+    }
+  ]
+}
