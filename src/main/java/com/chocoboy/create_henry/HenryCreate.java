@@ -74,6 +74,12 @@ public class HenryCreate
         HenryPackets.registerPackets();
         HenryDatagen.addExtraRegistrateData();
 
+        // Must be class-loaded here, before model loading. Flywheel only auto-registers partial
+        // models that already exist when ModelEvent.RegisterAdditional fires, and only populates
+        // bakedModel for models that were actually baked. Loading this class later (e.g. from
+        // FMLClientSetupEvent) leaves bakedModel null, which NPEs inside Models.partial().
+        HenryPartialModels.init();
+
         // Must run after HenryBlocks.register() so its stress values are registered before the config spec is built
         HenryConfigs.register(modContainer);
 

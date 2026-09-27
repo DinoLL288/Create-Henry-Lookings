@@ -230,7 +230,7 @@ public class FurnaceEngineBlockEntity extends SmartBlockEntity {
                 if (axis == facingAxis) {
                     return null;
                 } else {
-                    if (axis.isHorizontal() && facingAxis == Direction.Axis.X ^ facing.getAxisDirection() == Direction.AxisDirection.POSITIVE) {
+                    if (axis.isHorizontal() && (facingAxis == Direction.Axis.X ^ facing.getAxisDirection() == Direction.AxisDirection.POSITIVE)) {
                         angle *= -1.0F;
                     }
 

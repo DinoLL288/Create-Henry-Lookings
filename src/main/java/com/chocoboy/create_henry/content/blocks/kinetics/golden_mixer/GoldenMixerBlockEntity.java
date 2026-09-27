@@ -92,7 +92,7 @@ public class GoldenMixerBlockEntity extends BasinOperatingBlockEntity {
 
     @Override
     protected AABB createRenderBoundingBox() {
-        return new AABB(worldPosition).expandTowards(0, -1.5, 0);
+        return new AABB(worldPosition).expandTowards(0, -1.75, 0).expandTowards(0, 1.1, 0);
     }
 
     @Override
