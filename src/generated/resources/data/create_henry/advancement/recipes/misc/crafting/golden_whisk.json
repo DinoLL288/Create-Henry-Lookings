@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_golden_whisk": {
+      "conditions": {
+        "items": [
+          {
+            "items": "create_henry:golden_whisk"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "create_henry:crafting/golden_whisk"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_golden_whisk"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "create_henry:crafting/golden_whisk"
+    ]
+  }
+}

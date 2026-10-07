@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "create_henry:raw_rubber_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "create_henry:raw_rubber"
+  }
+}
