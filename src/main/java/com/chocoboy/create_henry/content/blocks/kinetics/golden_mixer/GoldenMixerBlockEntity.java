@@ -134,7 +134,9 @@ public class GoldenMixerBlockEntity extends BasinOperatingBlockEntity {
                         int t = recipe.getProcessingDuration();
                         if (t != 0) recipeSpeed = t / 100f;
                     }
-                    processingTicks = Mth.clamp((Mth.log2((int) (512 / speed))) * Mth.ceil(recipeSpeed * 15) + 1, 1, 512);
+                    processingTicks = Mth.clamp((int) Math.ceil(
+                        (Mth.log2((int) (512 / Math.max(1f, Math.abs(speedSpeed)))) * Mth.ceil(recipeSpeed * 15) + 1)
+                            / speedMultiplier()), 1, 512);
 
                     var basin = getBasin();
                     if (basin.isPresent()) {
