@@ -19,6 +19,9 @@ public class HenryLangPartial {
         consume(consumer, "create_henry.recipe.fan_withering", "Bulk Withering");
         consume(consumer, "create_henry.recipe.fan_dragon_breathing", "Bulk Dragon Breathing");
         consume(consumer, "create_henry.recipe.hydraulic_compacting", "Hydraulic Compacting");
+        consume(consumer, "create_henry.recipe.golden_mixing", "Golden Mixer Mixing");
+        consume(consumer, "create_henry.recipe.golden_auto_shapeless", "Golden Mixer Automatic Shapeless Crafting");
+        consume(consumer, "create_henry.recipe.golden_auto_brewing", "Golden Mixer Automatic Brewing");
         consume(consumer, "itemGroup.create_henry.base", "Create: Henry");
         // Multimeter display link: speed source
         consume(consumer, "create_henry.display_source.multimeter_speed", "Multimeter Speed (RPM)");
@@ -35,25 +38,25 @@ public class HenryLangPartial {
 
         // EMI/recipe-viewer display names for Henry's tags (EMI key format: tag.<registry>.<namespace>.<path>).
         // Fluid tags (conventional namespace).
-        consume(consumer, "tag.fluid.forge.sap", "Sap");
-        consume(consumer, "tag.fluid.forge.vanilla", "Vanilla Milkshake");
-        consume(consumer, "tag.fluid.forge.strawberry", "Strawberry Milkshake");
-        consume(consumer, "tag.fluid.forge.glowberry", "Glowberry Milkshake");
-        consume(consumer, "tag.fluid.forge.pumpkin", "Pumpkin Milkshake");
+        consume(consumer, "tag.fluid.c.sap", "Sap");
+        consume(consumer, "tag.fluid.c.vanilla", "Vanilla Milkshake");
+        consume(consumer, "tag.fluid.c.strawberry", "Strawberry Milkshake");
+        consume(consumer, "tag.fluid.c.glowberry", "Glowberry Milkshake");
+        consume(consumer, "tag.fluid.c.pumpkin", "Pumpkin Milkshake");
         // Bucket item tags (conventional namespace).
-        consume(consumer, "tag.item.forge.buckets.sap", "Sap Bucket");
-        consume(consumer, "tag.item.forge.buckets.chocolate_milkshake", "Chocolate Milkshake Bucket");
-        consume(consumer, "tag.item.forge.buckets.vanilla_milkshake", "Vanilla Milkshake Bucket");
-        consume(consumer, "tag.item.forge.buckets.strawberry_milkshake", "Strawberry Milkshake Bucket");
-        consume(consumer, "tag.item.forge.buckets.glowberry_milkshake", "Glowberry Milkshake Bucket");
-        consume(consumer, "tag.item.forge.buckets.pumpkin_milkshake", "Pumpkin Milkshake Bucket");
+        consume(consumer, "tag.item.c.buckets.sap", "Sap Bucket");
+        consume(consumer, "tag.item.c.buckets.chocolate_milkshake", "Chocolate Milkshake Bucket");
+        consume(consumer, "tag.item.c.buckets.vanilla_milkshake", "Vanilla Milkshake Bucket");
+        consume(consumer, "tag.item.c.buckets.strawberry_milkshake", "Strawberry Milkshake Bucket");
+        consume(consumer, "tag.item.c.buckets.glowberry_milkshake", "Glowberry Milkshake Bucket");
+        consume(consumer, "tag.item.c.buckets.pumpkin_milkshake", "Pumpkin Milkshake Bucket");
         // Material item tags (conventional namespace).
-        consume(consumer, "tag.item.forge.crude_rubbers", "Crude Rubber");
-        consume(consumer, "tag.item.forge.raw_rubbers", "Raw Rubber");
-        consume(consumer, "tag.item.forge.rubbers", "Rubber");
-        consume(consumer, "tag.item.forge.nuggets.coal", "Coal Nuggets");
-        consume(consumer, "tag.item.forge.nuggets.lapis", "Lapis Nuggets");
-        consume(consumer, "tag.item.forge.dusts.obsidian", "Obsidian Dust");
+        consume(consumer, "tag.item.c.crude_rubbers", "Crude Rubber");
+        consume(consumer, "tag.item.c.raw_rubbers", "Raw Rubber");
+        consume(consumer, "tag.item.c.rubbers", "Rubber");
+        consume(consumer, "tag.item.c.nuggets.coal", "Coal Nuggets");
+        consume(consumer, "tag.item.c.nuggets.lapis", "Lapis Nuggets");
+        consume(consumer, "tag.item.c.dusts.obsidian", "Obsidian Dust");
         // Fan-processing item tags (mod namespace).
         consume(consumer, "tag.item.create_henry.freezable", "Freezable");
         consume(consumer, "tag.item.create_henry.meat", "Meat");

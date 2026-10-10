@@ -15,7 +15,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
-import static com.chocoboy.create_henry.registry.HenryTags.forgeItemTag;
+import static com.chocoboy.create_henry.registry.HenryTags.commonItemTag;
 
 @SuppressWarnings({"deprecation"})
 public class HenryRegistrateTags {
@@ -27,16 +27,16 @@ public class HenryRegistrateTags {
     private static void genItemTags(RegistrateTagsProvider<Item> provIn) {
         TagGen.CreateTagsProvider<Item> prov = new TagGen.CreateTagsProvider<>(provIn, Item::builtInRegistryHolder);
 
-        prov.tag(forgeItemTag("dusts/obsidian"))
+        prov.tag(commonItemTag("dusts/obsidian"))
                 .add(AllItems.POWDERED_OBSIDIAN.get())
         ;
-        prov.tag(forgeItemTag("dusts"))
+        prov.tag(commonItemTag("dusts"))
                 .add(AllItems.POWDERED_OBSIDIAN.get())
         ;
-        prov.tag(forgeItemTag("stripped_logs"))
+        prov.tag(commonItemTag("stripped_logs"))
                 .add(Items.STRIPPED_OAK_LOG, Items.STRIPPED_BIRCH_LOG, Items.STRIPPED_SPRUCE_LOG, Items.STRIPPED_JUNGLE_LOG, Items.STRIPPED_ACACIA_LOG, Items.STRIPPED_DARK_OAK_LOG, Items.STRIPPED_MANGROVE_LOG, Items.STRIPPED_CHERRY_LOG, Items.STRIPPED_CRIMSON_STEM, Items.STRIPPED_WARPED_STEM)
         ;
-        prov.tag(forgeItemTag("stripped_wood"))
+        prov.tag(commonItemTag("stripped_wood"))
                 .add(Items.STRIPPED_OAK_WOOD, Items.STRIPPED_BIRCH_WOOD, Items.STRIPPED_SPRUCE_WOOD, Items.STRIPPED_JUNGLE_WOOD, Items.STRIPPED_ACACIA_WOOD, Items.STRIPPED_DARK_OAK_WOOD, Items.STRIPPED_MANGROVE_WOOD, Items.STRIPPED_CHERRY_WOOD, Items.STRIPPED_CRIMSON_HYPHAE, Items.STRIPPED_WARPED_HYPHAE)
         ;
         prov.tag(HenryTags.AllItemTags.SEETHABLE.tag)

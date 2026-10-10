@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "A": {
-      "tag": "forge:plates/brass"
+      "tag": "c:plates/brass"
     },
     "B": {
       "item": "minecraft:hopper"

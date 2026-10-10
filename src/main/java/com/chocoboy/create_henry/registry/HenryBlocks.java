@@ -59,7 +59,7 @@ import static com.simibubi.create.api.behaviour.movement.MovementBehaviour.movem
 import static com.simibubi.create.api.behaviour.display.DisplaySource.displaySource;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.*;
-import static com.chocoboy.create_henry.registry.HenryTags.forgeItemTag;
+import static com.chocoboy.create_henry.registry.HenryTags.commonItemTag;
 import static com.tterrag.registrate.providers.RegistrateRecipeProvider.has;
 
 @SuppressWarnings({"unused", "removal", "all"})
@@ -365,7 +365,7 @@ public class HenryBlocks {
             }))
             .recipe((c, p) -> save(ShapedRecipeBuilder.shaped(RecipeCategory.MISC, c.get(), 1)
                     .pattern("A").pattern("B").pattern("C")
-                    .define('A', forgeItemTag("plates/brass"))
+                    .define('A', commonItemTag("plates/brass"))
                     .define('B', Items.HOPPER)
                     .define('C', AllItems.ELECTRON_TUBE.get())
                     .unlockedBy("has_hopper", has(Items.HOPPER)),

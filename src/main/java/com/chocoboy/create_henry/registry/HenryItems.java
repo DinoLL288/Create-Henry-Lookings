@@ -26,7 +26,7 @@ import java.util.function.Supplier;
 import static com.tterrag.registrate.providers.RegistrateRecipeProvider.getItemName;
 import static com.tterrag.registrate.providers.RegistrateRecipeProvider.has;
 import static com.chocoboy.create_henry.HenryCreate.REGISTRATE;
-import static com.chocoboy.create_henry.registry.HenryTags.forgeItemTag;
+import static com.chocoboy.create_henry.registry.HenryTags.commonItemTag;
 
 @SuppressWarnings({"unused", "deprecation", "all", "rawtypes"})
 public class HenryItems {
@@ -96,7 +96,7 @@ public class HenryItems {
 			.model((c, p) -> p.withExistingParent(c.getId().getPath(),
 					ResourceLocation.withDefaultNamespace("item/generated")).texture("layer0",
 					ResourceLocation.fromNamespaceAndPath(HenryCreate.MOD_ID,"item/" + c.getId().getPath())))
-			.tag(forgeItemTag("raw_rubbers"))
+			.tag(commonItemTag("raw_rubbers"))
 			.recipe((c, p) -> {
 				Item output = HenryBlocks.RAW_RUBBER_BLOCK.get().asItem();
 				save(ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, output, 1)
@@ -117,7 +117,7 @@ public class HenryItems {
 			.model((c, p) -> p.withExistingParent(c.getId().getPath(),
 					ResourceLocation.withDefaultNamespace("item/generated")).texture("layer0",
 					ResourceLocation.fromNamespaceAndPath(HenryCreate.MOD_ID,"item/" + c.getId().getPath())))
-			.tag(forgeItemTag("rubbers"), forgeItemTag("crude_rubbers"))
+			.tag(commonItemTag("rubbers"), commonItemTag("crude_rubbers"))
 			.recipe((c, p) -> {
 				Item output = HenryBlocks.RUBBER_BLOCK.get().asItem();
 				save(ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, output, 1)
@@ -141,7 +141,7 @@ public class HenryItems {
 			.model((c, p) -> p.withExistingParent(c.getId().getPath(),
 					ResourceLocation.withDefaultNamespace("item/generated")).texture("layer0",
 					ResourceLocation.fromNamespaceAndPath(HenryCreate.MOD_ID,"item/" + c.getId().getPath())))
-			.tag(forgeItemTag("nuggets/lapis"), forgeItemTag("nuggets"))
+			.tag(commonItemTag("nuggets/lapis"), commonItemTag("nuggets"))
 			.recipe((c, p) -> {
 				Item output = Items.LAPIS_LAZULI;
 				save(ShapedRecipeBuilder.shaped(RecipeCategory.MISC, output, 1)
@@ -167,7 +167,7 @@ public class HenryItems {
 			.model((c, p) -> p.withExistingParent(c.getId().getPath(),
 					ResourceLocation.withDefaultNamespace("item/generated")).texture("layer0",
 					ResourceLocation.fromNamespaceAndPath(HenryCreate.MOD_ID,"item/" + c.getId().getPath())))
-			.tag(forgeItemTag("nuggets/coal"), forgeItemTag("nuggets"))
+			.tag(commonItemTag("nuggets/coal"), commonItemTag("nuggets"))
 			.recipe((c, p) -> {
 				Item output = Items.COAL;
 				save(ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, output, 1)

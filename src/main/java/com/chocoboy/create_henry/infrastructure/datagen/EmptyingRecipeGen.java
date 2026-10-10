@@ -10,7 +10,7 @@ import net.minecraft.world.item.Items;
 
 import java.util.concurrent.CompletableFuture;
 
-import static com.chocoboy.create_henry.registry.HenryTags.forgeItemTag;
+import static com.chocoboy.create_henry.registry.HenryTags.commonItemTag;
 
 @SuppressWarnings("unused")
 public final class EmptyingRecipeGen extends com.simibubi.create.api.data.recipe.EmptyingRecipeGen {
@@ -20,13 +20,13 @@ public final class EmptyingRecipeGen extends com.simibubi.create.api.data.recipe
             SAP_LOGS = create("sap_from_logs", b -> b
                     .output(HenryFluids.SAP.get(), 100)
                     .output(Items.STICK)
-                    .require(forgeItemTag("stripped_logs"))
+                    .require(commonItemTag("stripped_logs"))
             ),
 
             SAP_WOOD = create("sap_from_wood", b -> b
                     .output(HenryFluids.SAP.get(), 100)
                     .output(Items.STICK)
-                    .require(forgeItemTag("stripped_wood"))
+                    .require(commonItemTag("stripped_wood"))
             ),
 
             CHOCOLATE = create("chocolate", b -> b

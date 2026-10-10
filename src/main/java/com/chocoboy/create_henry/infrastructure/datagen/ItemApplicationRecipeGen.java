@@ -13,7 +13,7 @@ import net.minecraft.tags.ItemTags;
 
 import java.util.concurrent.CompletableFuture;
 
-import static com.chocoboy.create_henry.registry.HenryTags.forgeItemTag;
+import static com.chocoboy.create_henry.registry.HenryTags.commonItemTag;
 
 @SuppressWarnings("unused")
 public final class ItemApplicationRecipeGen extends com.simibubi.create.api.data.recipe.ItemApplicationRecipeGen {
@@ -31,7 +31,7 @@ public final class ItemApplicationRecipeGen extends com.simibubi.create.api.data
 					.output(HenryBlocks.HYDRAULIC_CASING.get())),
 
 			RUBBER_CASING = create("rubber_casing", b -> b
-					.require(forgeItemTag("stripped_logs"))
+					.require(commonItemTag("stripped_logs"))
 					.require(HenryItems.RUBBER.get())
 					.output(HenryBlocks.RUBBER_CASING.get())),
 
@@ -47,12 +47,12 @@ public final class ItemApplicationRecipeGen extends com.simibubi.create.api.data
 
 			DOWNGRADE_COGWHEEL = create("downgrade_cogwheel", b -> b
 					.require(AllBlocks.COGWHEEL.get())
-					.require(forgeItemTag("nuggets/coal"))
+					.require(commonItemTag("nuggets/coal"))
 					.output(AllBlocks.SHAFT.get())),
 
 			DOWNGRADE_LARGE_COGWHEEL = create("downgrade_large_cogwheel", b -> b
 					.require(AllBlocks.LARGE_COGWHEEL.get())
-					.require(forgeItemTag("nuggets/coal"))
+					.require(commonItemTag("nuggets/coal"))
 					.output(AllBlocks.COGWHEEL.get()));
 
 	public ItemApplicationRecipeGen(PackOutput output, CompletableFuture<HolderLookup.Provider> lookups) {

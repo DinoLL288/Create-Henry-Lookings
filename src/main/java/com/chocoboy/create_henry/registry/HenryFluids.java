@@ -131,7 +131,7 @@ public class HenryFluids {
                 .bucket()
                 .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), ResourceLocation.fromNamespaceAndPath("minecraft", "item/generated"))
                         .texture("layer0", ResourceLocation.fromNamespaceAndPath(HenryCreate.MOD_ID, "item/" + ctx.getName())))
-                .tag(HenryTags.forgeItemTag("buckets/" + id))
+                .tag(HenryTags.commonItemTag("buckets/" + id))
                 .build();
     }
 

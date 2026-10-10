@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 
-import static com.chocoboy.create_henry.registry.HenryTags.NameSpace.FORGE;
+import static com.chocoboy.create_henry.registry.HenryTags.NameSpace.COMMON;
 
 @SuppressWarnings({"all"})
 public class HenryTags {
@@ -31,20 +31,20 @@ public class HenryTags {
 		return TagKey.create(registry.key(), id);
 	}
 
-	public static <T> TagKey<T> forgeTag(Registry<T> registry, String path) {
-		return optionalTag(registry, ResourceLocation.fromNamespaceAndPath("forge", path));
+	public static <T> TagKey<T> commonTag(Registry<T> registry, String path) {
+		return optionalTag(registry, ResourceLocation.fromNamespaceAndPath("c", path));
 	}
 
-	public static TagKey<Block> forgeBlockTag(String path) {
-		return forgeTag(BuiltInRegistries.BLOCK, path);
+	public static TagKey<Block> commonBlockTag(String path) {
+		return commonTag(BuiltInRegistries.BLOCK, path);
 	}
 
-	public static TagKey<Item> forgeItemTag(String path) {
-		return forgeTag(BuiltInRegistries.ITEM, path);
+	public static TagKey<Item> commonItemTag(String path) {
+		return commonTag(BuiltInRegistries.ITEM, path);
 	}
 
-	public static TagKey<Fluid> forgeFluidTag(String path) {
-		return forgeTag(BuiltInRegistries.FLUID, path);
+	public static TagKey<Fluid> commonFluidTag(String path) {
+		return commonTag(BuiltInRegistries.FLUID, path);
 	}
 
 	public static TagKey<Item> minecraftItemTag(String path) {
@@ -56,6 +56,7 @@ public class HenryTags {
 		MOD(HenryCreate.MOD_ID, false, true),
 		CREATE("create"),
 		FORGE("forge"),
+		COMMON("c"),
 
 		;
 
@@ -196,12 +197,12 @@ public class HenryTags {
 		FAN_PROCESSING_CATALYSTS_WITHERING(NameSpace.MOD, "fan_processing_catalysts/withering"),
 		FAN_PROCESSING_CATALYSTS_DRAGON_BREATHING(NameSpace.MOD, "fan_processing_catalysts/dragon_breathing"),
 
-		SAP(FORGE),
-		CHOCOLATE(FORGE),
-		VANILLA(FORGE),
-		STRAWBERRY(FORGE),
-		GLOWBERRY(FORGE),
-		PUMPKIN(FORGE)
+		SAP(COMMON),
+		CHOCOLATE(COMMON),
+		VANILLA(COMMON),
+		STRAWBERRY(COMMON),
+		GLOWBERRY(COMMON),
+		PUMPKIN(COMMON)
 
 		;
 
