@@ -168,6 +168,18 @@ public class HydraulicPressBlockEntity extends MechanicalPressBlockEntity {
     }
 
     @Override
+    public boolean tryProcessInBasin(boolean simulate) {
+        if (!canProcessWithFluid())
+            return false;
+        if (simulate)
+            return true;
+        boolean result = super.tryProcessInBasin(false);
+        if (result)
+            drainFluid();
+        return result;
+    }
+
+    @Override
     public boolean tryProcessOnBelt(TransportedItemStack input, List<ItemStack> outputList, boolean simulate) {
         if (!canProcessWithFluid()) {
             return false;
